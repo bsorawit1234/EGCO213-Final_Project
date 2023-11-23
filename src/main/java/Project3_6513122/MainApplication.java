@@ -3,6 +3,9 @@ package Project3_6513122;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 public class MainApplication extends JFrame implements ActionListener {
     private JLabel contentpane;
@@ -14,9 +17,13 @@ public class MainApplication extends JFrame implements ActionListener {
 
     private JButton btn_play, btn_htp;
 
+    private ArrayList<User> UserList = new ArrayList<User>();
+
     public static void main(String[] args) { new MainApplication(); }
 
     public MainApplication() {
+        constructsList();
+
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -31,6 +38,24 @@ public class MainApplication extends JFrame implements ActionListener {
         contentpane.setLayout(null);
 
         addComponents();
+    }
+    private void constructsList() {
+        if((new File(MyConstants.PATH)).exists()) {
+            //construct ArrayList
+            try{
+                Scanner scan = new Scanner(new FileReader(MyConstants.SHEET));
+                String line;
+                String[] col;
+
+                while(scan.hasNext()) {
+                    line = scan.nextLine();
+                    col = line.split(" ");
+                    UserList.add(new User(col[0], col[1]));
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
     }
     private void newFrame(String p) {
         JFrame frame = new JFrame();
@@ -93,8 +118,10 @@ public class MainApplication extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_play) {
-            LoginFrame loginFrame = new LoginFrame();
+            LoginFrame loginFrame = new LoginFrame(this, UserList);
             loginFrame.setVisible(true);
+//            RegisterFrame registerFrame = new RegisterFrame(this, UserList);
+//            registerFrame.setVisible(true);
             this.setVisible(false);
         } else if (e.getSource() == btn_htp) {
             HowtoplayFrame howToPlayFrame = new HowtoplayFrame();

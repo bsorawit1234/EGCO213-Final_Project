@@ -4,9 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
-public class LoginFrame extends JFrame {
+
+class RegisterFrame extends JFrame {
     private JFrame ParentFrame;
     private JPanel contentpane;
     private JLabel drawpane;
@@ -16,15 +18,15 @@ public class LoginFrame extends JFrame {
     private JTextArea       usernameTextArea;
     private JButton         btn_submit;
     private ArrayList<User> UserList;
-    private User user;
-    public LoginFrame(JFrame pf, ArrayList<User> ul) {
+
+    public RegisterFrame(JFrame pf, ArrayList<User> ul) {
         ParentFrame = pf;
         UserList = ul;
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setTitle("Login");
+        this.setTitle("Register");
 
         Addinput();
     }
@@ -73,7 +75,7 @@ public class LoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    user = login(usernameTextArea.getText(), new String(passwordField.getPassword()), UserList);
+                    register(usernameTextArea.getText(), new String(passwordField.getPassword()), UserList);
                 } catch (MyException err) {
                     /*show JDialogue*/
                     JOptionPane.showMessageDialog(getParent(),err.getMessage());
@@ -86,27 +88,39 @@ public class LoginFrame extends JFrame {
         });
         drawpane.add(btn_submit);
 
-
         drawpane.add(label);
         contentpane.add(drawpane);
         repaint();
         validate();
     }
 
-    public User login(String username, String password, ArrayList<User> UserList) throws MyException {
+    public void register(String username, String password, ArrayList<User> UserList) throws MyException {
         if(UserList != null) {
-            for(User u : UserList) {
-                if(u.getUsername().equals(username)) {
-                    if(u.getPassword().equals(password)) {
-                        return u;
-                    } else {
-                        throw new MyException("Username or Password is incorrect.");
-                    }
-                } else {
-                    throw new MyException("Username or Password is incorrect.");
-                }
-            }
+           for(User u : UserList) {
+              if(u.getUsername().equals(username)) {
+                  throw new MyException("Username has been taken already.");
+              }
+           }
         }
-        return null;
+        if(username == null || password == null) {
+            throw new MyException("Username and Password cannot be empty.");
+        }
+        if(username.contains(" ") || password.contains(" ")) {
+            throw new MyException("Username and Password cannot contain space.");
+        }
+        if(username.length() < 5 || password.length() < 5) {
+            throw new MyException("Username and Password length must be greater than 5 characters.");
+        }
+
+        UserList.add(new User(username, password));
+
+        /* write to file */
+        try{
+            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
+            write.println(username + " " + password);
+            write.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 }

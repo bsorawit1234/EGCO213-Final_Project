@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 interface MyConstants {
     //----- Resource files
     static final String PATH        = "src/main/java/Project3_6513122/resources/";
+    static final String SHEET       = PATH + "sheet.txt";
     static final String BG_HOME     = PATH + "BG_HOME.jpeg";
     static final String PLAY_ICON   = PATH + "PLAY.png";
     static final String ORANGE   = PATH + "ORANGE.jpeg";
