@@ -14,7 +14,7 @@ public class LoginFrame extends JFrame {
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private JPasswordField  passwordField;
     private JTextArea       usernameTextArea;
-    private JButton         btn_submit;
+    private JButton         btn_submit, btn_register;
     private ArrayList<User> UserList;
     private User user;
     public LoginFrame(JFrame pf, ArrayList<User> ul) {
@@ -86,6 +86,19 @@ public class LoginFrame extends JFrame {
         });
         drawpane.add(btn_submit);
 
+        btn_register = new JButton("CREATE ACCOUNT");
+        btn_register.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
+        btn_register.setBounds(300, 500,400 , 50);
+        btn_register.setForeground(Color.gray);
+        btn_register.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RegisterFrame registerFrame = new RegisterFrame(ParentFrame, UserList);
+                registerFrame.setVisible(true);
+                dispose();
+            }
+        });
+        drawpane.add(btn_register);
 
         drawpane.add(label);
         contentpane.add(drawpane);
