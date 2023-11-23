@@ -107,9 +107,6 @@ public class LoginFrame extends JFrame {
     }
 
     public User login(String username, String password, ArrayList<User> UserList) throws MyException {
-        if(username == null || password == null) {
-            throw new MyException("Username and Password cannot be empty.");
-        }
         if(UserList != null) {
             for(User u : UserList) {
                 if(u.getUsername().equals(username)) {
