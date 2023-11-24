@@ -128,8 +128,10 @@ public class MainApplication extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_play) {
-            LoginFrame loginFrame = new LoginFrame(this, UserList);
-            loginFrame.setVisible(true);
+            SlotFrame slotFrame = new SlotFrame(this);
+            slotFrame.setVisible(true);
+//            LoginFrame loginFrame = new LoginFrame(this, UserList);
+//            loginFrame.setVisible(true);
 //            RegisterFrame registerFrame = new RegisterFrame(this, UserList);
 //            registerFrame.setVisible(true);
             this.setVisible(false);

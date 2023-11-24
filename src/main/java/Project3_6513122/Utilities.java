@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 interface MyConstants {
     //----- Resource files
-    static final String PATH        = "src/main/java/Project3_6513122/resources/source slot/";
+    static final String PATH        = "src/main/java/Project3_6513122/resources/source_slot/";
     static final String SHEET       = PATH + "sheet.txt";
     static final String BG_HOME     = PATH + "bg-play.png";
     static final String PLAY_ICON   = PATH + "play-button.png";
@@ -13,6 +13,7 @@ interface MyConstants {
     static final String ORANGE   = PATH + "ORANGE.jpeg";
     static final String BG_LOGIN     = PATH + "bg-login.jpg";
     static final String HEAD_ICON     = PATH + "slotty69logo.png";
+    static final String SLOT_CARD = PATH + "/slot_card/";
 
     //----- Sizes and locations
     static final int FRAMEWIDTH  = 1000;
