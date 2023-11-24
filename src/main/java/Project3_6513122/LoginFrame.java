@@ -33,7 +33,7 @@ public class LoginFrame extends JFrame {
         contentpane = (JPanel)getContentPane();
 
         drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.BG_HOME).resize(framewidth, frameheight);
+        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(1200, 675);
         drawpane.setIcon(background);
         drawpane.setLayout(null);
 
@@ -47,9 +47,11 @@ public class LoginFrame extends JFrame {
         username.setVisible(true);
         username.setBounds(20, 80, 200, 100);
         username.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
+        username.setForeground(Color.white);
         password.setVisible(true);
         password.setBounds(20, 200, 200, 100);
         password.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
+        password.setForeground(Color.white);
         label.add(username);
         label.add(password);
 

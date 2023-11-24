@@ -14,6 +14,8 @@ public class MainApplication extends JFrame implements ActionListener {
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private int playheight = MyConstants.PLAYHEIGHT;
     private int playwidth = MyConstants.PLAYWIDTH;
+    private int htpwidth = MyConstants.HTPWIDTH;
+    private int htpheight = MyConstants.HTPHEIGHT;
 
     private JButton btn_play, btn_htp;
 
@@ -36,6 +38,8 @@ public class MainApplication extends JFrame implements ActionListener {
         MyImageIcon background = new MyImageIcon(MyConstants.BG_HOME).resize(framewidth, frameheight);
         contentpane.setIcon(background);
         contentpane.setLayout(null);
+
+//        contentpane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 100));
 
         addComponents();
     }
@@ -69,20 +73,26 @@ public class MainApplication extends JFrame implements ActionListener {
     }
     
     public void addComponents() {
-        JLabel head = new JLabel("SLOTTY69");
-        head.setBounds(380, 0, 250, 250);
-        head.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 50));
-        head.setForeground(Color.WHITE);
+        MyImageIcon headICON = new MyImageIcon(MyConstants.HEAD_ICON).resize(282, 134);
+        JLabel head = new JLabel(headICON);
+        head.setBounds(350, 0, 282, 134);
 
         MyImageIcon playBUTTON = new MyImageIcon(MyConstants.PLAY_ICON).resize(playwidth, playheight);
         btn_play = new JButton(playBUTTON);
-        btn_play.setBounds(300, 200, 400, 100);
+        btn_play.setBounds(265, 250, 470, 170);
+        btn_play.setBorderPainted(false);
+        btn_play.setContentAreaFilled(false);
+        btn_play.setFocusPainted(false);
+        btn_play.setOpaque(false);
         btn_play.addActionListener(this);
 
-        btn_htp = new JButton("HOW TO PLAY");
-        btn_htp.setFont(new Font("Trend Sans One", Font.PLAIN, 50));
-        btn_htp.setBounds(300, 400,400 , 50);
-        btn_htp.setForeground(Color.gray);
+        MyImageIcon htpBUTTON = new MyImageIcon(MyConstants.HOWTOPLAY_ICON).resize(htpwidth, htpheight);
+        btn_htp = new JButton(htpBUTTON);
+        btn_htp.setBounds(250, 475,500 , 90);
+        btn_htp.setBorderPainted(false);
+        btn_htp.setContentAreaFilled(false);
+        btn_htp.setFocusPainted(false);
+        btn_htp.setOpaque(false);
         btn_htp.addActionListener(this);
 
         contentpane.add(head);

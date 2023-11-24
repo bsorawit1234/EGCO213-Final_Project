@@ -5,17 +5,22 @@ import javax.swing.ImageIcon;
 
 interface MyConstants {
     //----- Resource files
-    static final String PATH        = "src/main/java/Project3_6513122/resources/";
+    static final String PATH        = "src/main/java/Project3_6513122/resources/source slot/";
     static final String SHEET       = PATH + "sheet.txt";
-    static final String BG_HOME     = PATH + "BG_HOME.jpeg";
-    static final String PLAY_ICON   = PATH + "PLAY.png";
+    static final String BG_HOME     = PATH + "bg-play.png";
+    static final String PLAY_ICON   = PATH + "play-button.png";
+    static final String HOWTOPLAY_ICON   = PATH + "howtoplay.png";
     static final String ORANGE   = PATH + "ORANGE.jpeg";
+    static final String BG_LOGIN     = PATH + "bg-login.jpg";
+    static final String HEAD_ICON     = PATH + "slotty69logo.png";
 
     //----- Sizes and locations
     static final int FRAMEWIDTH  = 1000;
-    static final int FRAMEHEIGHT = 600;
-    static final int PLAYWIDTH  = 500;
-    static final int PLAYHEIGHT  = 300;
+    static final int FRAMEHEIGHT = 635;
+    static final int PLAYWIDTH  = 499;
+    static final int PLAYHEIGHT  = 219;
+    static final int HTPHEIGHT  = 120;
+    static final int HTPWIDTH  = 522;
 }
 
 class MyImageIcon extends ImageIcon {
