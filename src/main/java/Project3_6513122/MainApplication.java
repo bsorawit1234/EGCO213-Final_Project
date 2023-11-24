@@ -24,7 +24,7 @@ public class MainApplication extends JFrame implements ActionListener {
     public static void main(String[] args) { new MainApplication(); }
 
     public MainApplication() {
-        constructsList();
+        if((new File(MyConstants.SHEET)).exists()) constructsList();
 
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
@@ -44,7 +44,6 @@ public class MainApplication extends JFrame implements ActionListener {
         addComponents();
     }
     private void constructsList() {
-        if((new File(MyConstants.PATH)).exists()) {
             //construct ArrayList
             try{
                 Scanner scan = new Scanner(new FileReader(MyConstants.SHEET));
@@ -54,12 +53,15 @@ public class MainApplication extends JFrame implements ActionListener {
                 while(scan.hasNext()) {
                     line = scan.nextLine();
                     col = line.split(" ");
-                    UserList.add(new User(col[0], col[1]));
+                    User user = new User(col[0], col[1]);
+                    user.setMoney(Double.parseDouble(col[2]));
+                    user.setCredits(Double.parseDouble(col[3]));
+                    UserList.add(user);
+
                 }
             } catch (Exception e) {
                 System.err.println(e);
             }
-        }
     }
     private void newFrame(String p) {
         JFrame frame = new JFrame();
@@ -107,31 +109,31 @@ public class MainApplication extends JFrame implements ActionListener {
         head.repaint();
     }
     
-    private void login_page() {
-        JFrame newFrame = new JFrame("Login");
-        newFrame.setSize(framewidth, frameheight);
-        newFrame.setLocationRelativeTo(null);
-        newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        newFrame.setResizable(false);
-
-        // Add components or modify as needed for the new frame
-        // For example:
-        JLabel label = new JLabel("This is a new frame!");
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.PLAIN, 24));
-        newFrame.add(label);
-
-        newFrame.setVisible(true);
-        //this.setVisible(false); // Hide the current frame
-    }
+//    private void login_page() {
+//        JFrame newFrame = new JFrame("Login");
+//        newFrame.setSize(framewidth, frameheight);
+//        newFrame.setLocationRelativeTo(null);
+//        newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        newFrame.setResizable(false);
+//
+//        // Add components or modify as needed for the new frame
+//        // For example:
+//        JLabel label = new JLabel("This is a new frame!");
+//        label.setHorizontalAlignment(SwingConstants.CENTER);
+//        label.setFont(new Font("Arial", Font.PLAIN, 24));
+//        newFrame.add(label);
+//
+//        newFrame.setVisible(true);
+//        this.setVisible(false); // Hide the current frame
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_play) {
             LoginFrame loginFrame = new LoginFrame(this, UserList);
             loginFrame.setVisible(true);
-//            RegisterFrame registerFrame = new RegisterFrame(this, UserList);
-//            registerFrame.setVisible(true);
+//            UserFrame uf = new UserFrame(this, new User("titit", "titit"), UserList);
+//            uf.setVisible(true);
             this.setVisible(false);
         } else if (e.getSource() == btn_htp) {
             HowtoplayFrame howToPlayFrame = new HowtoplayFrame();
