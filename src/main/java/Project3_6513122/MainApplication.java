@@ -55,6 +55,7 @@ public class MainApplication extends JFrame implements ActionListener {
                     line = scan.nextLine();
                     col = line.split(" ");
                     UserList.add(new User(col[0], col[1]));
+
                 }
             } catch (Exception e) {
                 System.err.println(e);
@@ -128,10 +129,13 @@ public class MainApplication extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_play) {
-            LoginFrame loginFrame = new LoginFrame(this, UserList);
-            loginFrame.setVisible(true);
+//            LoginFrame loginFrame = new LoginFrame(this, UserList);
+//            loginFrame.setVisible(true);
 //            RegisterFrame registerFrame = new RegisterFrame(this, UserList);
 //            registerFrame.setVisible(true);
+            DepositFrame depositFrame = new DepositFrame(this, new User("titit", "titit"));
+            depositFrame.setVisible(true);
+
             this.setVisible(false);
         } else if (e.getSource() == btn_htp) {
             HowtoplayFrame howToPlayFrame = new HowtoplayFrame();
@@ -141,4 +145,5 @@ public class MainApplication extends JFrame implements ActionListener {
         // Add more conditions for other buttons as needed (e.g., registration button)
     }
 }
+
 

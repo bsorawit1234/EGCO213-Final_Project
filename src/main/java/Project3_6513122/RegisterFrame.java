@@ -206,12 +206,12 @@ class RegisterFrame extends JFrame {
         UserList.add(newUser);
 
         /* write to file */
-        try{
-            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
-            write.println(username + " " + password + " " + newUser.getMoney() + " " + newUser.getCredits());
-            write.close();
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+//        try{
+//            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
+//            write.println(username + " " + password + " " + newUser.getMoney() + " " + newUser.getCredits());
+//            write.close();
+//        } catch (Exception e) {
+//            System.err.println(e);
+//        }
     }
 }

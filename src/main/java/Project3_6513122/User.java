@@ -1,14 +1,24 @@
 package Project3_6513122;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 public class User {
     private String username, password;
-    private double credits, money;
+    private int credits, money;
 
     public User(String un, String pw) {
         username = un;
         password = pw;
         money = 0;
         credits = 100;
+        try{
+            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
+            write.println(username + " " + password + " " + money + " " + credits);
+            write.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
     public String getUsername() {
@@ -17,17 +27,17 @@ public class User {
     public String getPassword() {
         return password;
     }
-    public double getMoney() {
+    public int getMoney() {
         return money;
     }
-    public double getCredits() {
+    public int getCredits() {
         return credits;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(int money) {
         this.money = money;
     }
-    public void setCredits(double credits) {
+    public void setCredits(int credits) {
         this.credits = credits;
     }
 

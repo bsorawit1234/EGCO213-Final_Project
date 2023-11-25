@@ -1,24 +1,26 @@
 package Project3_6513122;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class DepositFrame extends JFrame {
-    private JFrame ParentFrame;
-    private JPanel contentpane;
-    private JLabel drawpane;
-    private int framewidth = MyConstants.FRAMEWIDTH;
-    private int frameheight = MyConstants.FRAMEHEIGHT;
-    private JButton         btn_play, btn_deposit, btn_withdraw, btn_logout;
-    private ArrayList<User> UserList;
+    private JFrame          ParentFrame;
+    private JPanel          contentpane, amountContainer;
+    private JLabel          drawpane;
+    private JTextArea       amountField, descriptionField;
+    private int             framewidth = MyConstants.FRAMEWIDTH;
+    private int             frameheight = MyConstants.FRAMEHEIGHT;
+    private JButton         btn_deposit;
+//    private ArrayList<User> UserList;
     private User user;
-    public DepositFrame(JFrame pf, User us, ArrayList<User> ul) {
+    public DepositFrame(JFrame pf, User us) {
         ParentFrame = pf;
         user = us;
-        UserList = ul;
+//        UserList = ul;
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,53 +66,89 @@ public class DepositFrame extends JFrame {
         label.add(money);
         label.add(credits);
 
-        btn_play = new JButton("Play");
-        btn_play.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_play.setBounds(300, 250,400 , 50);
-        btn_play.setForeground(Color.gray);
-        btn_play.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /* SLOT_FRAME */
-            }
-        });
-        drawpane.add(btn_play);
+        JLabel amount = new JLabel("Deposit Amount");
+        amount.setVisible(true);
+//        amount.setBounds(800, 30, 200, 100);
+        amount.setBounds(400, 270,400 , 40);
+        amount.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
+        amount.setForeground(Color.white);
+        drawpane.add(amount);
+
+        JLabel dollarSign = new JLabel("$");
+        dollarSign.setVisible(true);
+//        dollarSign.setBounds(800, 30, 200, 100);
+        dollarSign.setBounds(200, 320,600 , 50);
+        dollarSign.setFont(new Font("Trend Sans One", Font.PLAIN, 40));
+
+        amountField = new JTextArea();
+        amountField.setFont(new Font("SanSerif", Font.PLAIN, 40));
+        amountField.setBounds(200, 320,600 , 50);
+        amountField.setEditable(true);
+        amountField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
+        amountContainer = new JPanel(new BorderLayout());
+        amountContainer.add(dollarSign, BorderLayout.WEST);
+        amountContainer.add(amountField, BorderLayout.CENTER);
+        amountContainer.setVisible(true);
+        amountContainer.setBounds(200, 320,600 , 50);
+        drawpane.add(amountContainer);
+
+//        // Sample data for the table
+//        Object[][] data = {
+//                {"User1", 100, 500.0},
+//        };
+//        Object[] columnNames = {"Username", "Credits", "Money"};
+//        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return false;
+//            }
+//        };
+//
+//        JTable userTable = new JTable(model);
+//        userTable.setPreferredSize(new Dimension(500, 350));
+//        JScrollPane scrollPane = new JScrollPane(userTable);
+////        userTable.setBounds(300, 250, 400, 40);
+//        scrollPane.setBounds(300, 250, 400, 40);
+//        drawpane.add(scrollPane);
 
         btn_deposit = new JButton("DEPOSIT");
         btn_deposit.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_deposit.setBounds(300, 320,400 , 50);
+        btn_deposit.setBounds(680, 480, 200, 50);
         btn_deposit.setForeground(Color.gray);
         btn_deposit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    if(Integer.parseInt(amountField.getText()) > user.getMoney()) {
+//                        if(Integer.parseInt(amountField.getText()) > 1000000000) {
+//                            throw new MyException("You cannot deposit money more than 999999999");
+//                        }
+                        throw new MyException("You cannot deposit money with the value that you have provided");
+                    }
+                } catch (NumberFormatException err) {
+                    JOptionPane.showMessageDialog(getParent(), "Please enter number only");
+                    amountField.setText("");
+                }
+                catch (Exception err) {
+                    System.err.println(err);
+                }
             }
         });
         drawpane.add(btn_deposit);
 
-        btn_withdraw = new JButton("WITHDRAW");
-        btn_withdraw.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_withdraw.setBounds(300, 390,400 , 50);
-        btn_withdraw.setForeground(Color.gray);
-        btn_withdraw.addActionListener(new ActionListener() {
+        JButton btn_back = new JButton("Back");
+        btn_back.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
+        btn_back.setBounds(100, 480, 200, 50);
+        btn_back.setForeground(Color.gray);
+        btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        drawpane.add(btn_withdraw);
+        drawpane.add(btn_back);
 
-        btn_logout = new JButton("LOGOUT");
-        btn_logout.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_logout.setBounds(300, 460,400 , 50);
-        btn_logout.setForeground(Color.gray);
-        btn_logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        drawpane.add(btn_logout);
 
         drawpane.add(label);
         contentpane.add(drawpane);
