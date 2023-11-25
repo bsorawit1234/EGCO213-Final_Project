@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
-    private JFrame ParentFrame;
+    private JFrame mainFrame;
     private JPanel contentpane, containerPassword;
     private JLabel drawpane;
     private int framewidth = MyConstants.FRAMEWIDTH;
@@ -21,7 +21,7 @@ public class LoginFrame extends JFrame {
     private ArrayList<User> UserList;
     private User user;
     public LoginFrame(JFrame pf, ArrayList<User> ul) {
-        ParentFrame = pf;
+        mainFrame = pf;
         UserList = ul;
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
@@ -111,8 +111,8 @@ public class LoginFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    user = login(usernameTextArea.getText(), new String(passwordField.getPassword()), UserList);
-                    UserFrame userFrame = new UserFrame(ParentFrame, user, UserList);
+                    int index = login(usernameTextArea.getText(), new String(passwordField.getPassword()), UserList);
+                    UserFrame userFrame = new UserFrame(mainFrame, index, UserList);
                     userFrame.setVisible(true);
                     dispose();
                 } catch (MyException err) {
@@ -133,7 +133,7 @@ public class LoginFrame extends JFrame {
         btn_register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegisterFrame registerFrame = new RegisterFrame(ParentFrame, UserList);
+                RegisterFrame registerFrame = new RegisterFrame(mainFrame, UserList);
                 registerFrame.setVisible(true);
                 dispose();
             }
@@ -146,13 +146,13 @@ public class LoginFrame extends JFrame {
         validate();
     }
 
-    public User login(String username, String password, ArrayList<User> UserList) throws MyException {
+    public int login(String username, String password, ArrayList<User> UserList) throws MyException {
         if(username.isBlank() || password.isBlank()) throw new MyException("Please enter somethings.");
         if(UserList != null) {
             for(int i = 0; i < UserList.size(); i++) {
                 if(UserList.get(i).getUsername().equals(username)) {
                     if(UserList.get(i).getPassword().equals(password)) {
-                        return UserList.get(i);
+                        return i;
                     } else {
                         throw new MyException("Username or Password is incorrect.");
                     }

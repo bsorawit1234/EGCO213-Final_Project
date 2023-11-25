@@ -12,13 +12,6 @@ public class User {
         password = pw;
         money = 0;
         credits = 100;
-        try{
-            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
-            write.println(username + " " + password + " " + money + " " + credits);
-            write.close();
-        } catch (Exception e) {
-            System.err.println(e);
-        }
     }
 
     public String getUsername() {

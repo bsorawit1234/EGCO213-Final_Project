@@ -24,7 +24,7 @@ public class MainApplication extends JFrame implements ActionListener {
     public static void main(String[] args) { new MainApplication(); }
 
     public MainApplication() {
-        constructsList();
+        if((new File(MyConstants.SHEET).exists())) constructsList();
 
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
@@ -44,23 +44,24 @@ public class MainApplication extends JFrame implements ActionListener {
         addComponents();
     }
     private void constructsList() {
-        if((new File(MyConstants.PATH)).exists()) {
             //construct ArrayList
             try{
                 Scanner scan = new Scanner(new FileReader(MyConstants.SHEET));
                 String line;
                 String[] col;
+                User user;
 
                 while(scan.hasNext()) {
                     line = scan.nextLine();
                     col = line.split(" ");
-                    UserList.add(new User(col[0], col[1]));
-
+                    user = new User(col[0], col[1]);
+                    user.setMoney(Integer.parseInt(col[2]));
+                    user.setCredits(Integer.parseInt(col[3]));
+                    UserList.add(user);
                 }
             } catch (Exception e) {
                 System.err.println(e);
             }
-        }
     }
     private void newFrame(String p) {
         JFrame frame = new JFrame();
@@ -129,12 +130,8 @@ public class MainApplication extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_play) {
-//            LoginFrame loginFrame = new LoginFrame(this, UserList);
-//            loginFrame.setVisible(true);
-//            RegisterFrame registerFrame = new RegisterFrame(this, UserList);
-//            registerFrame.setVisible(true);
-            DepositFrame depositFrame = new DepositFrame(this, new User("titit", "titit"));
-            depositFrame.setVisible(true);
+            LoginFrame loginFrame = new LoginFrame(this, UserList);
+            loginFrame.setVisible(true);
 
             this.setVisible(false);
         } else if (e.getSource() == btn_htp) {
