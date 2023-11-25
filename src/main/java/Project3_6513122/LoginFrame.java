@@ -36,7 +36,7 @@ public class LoginFrame extends JFrame {
         contentpane = (JPanel)getContentPane();
 
         drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(1200, 675);
+        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(framewidth, frameheight);
         drawpane.setIcon(background);
         drawpane.setLayout(null);
 
