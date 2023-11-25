@@ -1,13 +1,19 @@
 package Project3_6513122;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SlotFrame extends JFrame {
+    private JTextArea betINPUT;
     private JFrame ParentFrame;
     private JPanel contentpane;
-    private JLabel drawpane;
+    private JPanel drawpane;
+    private JTextField balanceDISPLAY;
+    private JLayeredPane layeredPane;
     private int framewidth = MyConstants.FRAMEWIDTH;
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private int spinCountBtn = 0;
@@ -18,31 +24,44 @@ public class SlotFrame extends JFrame {
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setTitle("SLOT FRAME");
-        this.setLayout(null);
+        //this.setLayout(null);
 
         contentpane = (JPanel) getContentPane();
-        drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.PATH + "BG_HOME.jpeg").resize(framewidth, frameheight);
-        drawpane.setIcon(background);
-        drawpane.setLayout(null);
+        contentpane.setLayout(new BorderLayout());
+
+        layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(framewidth, frameheight));
+
+        drawpane = new JPanel();
+        drawpane.setBounds(0, 0, framewidth, frameheight);
+        //drawpane.setLayout(new GridLayout(3, 3));
+
+        MyImageIcon background = new MyImageIcon(MyConstants.SLOT_MAINBG).resize(framewidth, frameheight);
+        JLabel backgroundLabel = new JLabel(background);
+        backgroundLabel.setBounds(0, 0, framewidth, frameheight);
+        layeredPane.add(backgroundLabel, Integer.valueOf(0));
+        //drawpane.add(backgroundLabel);
+
 
         int x = 0, y = 100;
         for(int i = 0; i < 3; i++) {
-            x = 325;
+            x = 400;
             for(int j = 0; j < 3; j++) {
                 SlotLabel s = new SlotLabel(x, y);
                 slotty.add(s);
-                add(s);
-                x += 125;
+                layeredPane.add(s, Integer.valueOf(1));
+                x += 200;
             }
-            y += 125;
+            y += 200;
         }
+
 
         String[] spin_text = {"SPIN", "STOP"}; // Wating for img button spin, stop
         JButton spin_btn = new JButton(spin_text[0]);
-        spin_btn.setBounds(x + 50, y, 50, 50);
+        spin_btn.setBounds(x + 50, 500, 100, 100);
+        layeredPane.add(spin_btn, Integer.valueOf(2));
 
         spin_btn.addActionListener(e -> {
             for(SlotLabel s: slotty) {
@@ -66,23 +85,46 @@ public class SlotFrame extends JFrame {
             }
         });
 
-        JLabel balance = new JLabel("BALANCE: ");
-        balance.setBounds(0, 800, 200, 200);
-        balance.setVisible(true);
-        balance.validate();
-        balance.repaint();
+//        JLabel balance = new JLabel("BALANCE: ");
+//        balance.setBounds(10, 10, 200, 200);
+//        balance.setVisible(true);
+//        layeredPane.add(balance, Integer.valueOf(2));
 
-        JLabel bet = new JLabel("BET: ");
-        bet.setBounds(0, 800, 200, 200);
-        bet.setVisible(true);
-        bet.validate();
-        balance.repaint();
+//        JLabel bet = new JLabel("BET: ");
+//        bet.setBounds(10, 40, 200, 200);
+//        bet.setVisible(true);
+//        layeredPane.add(bet, Integer.valueOf(2));
 
+        MyImageIcon balanceICON = new MyImageIcon(MyConstants.BET_ICON).resize(169, 74);
+        JLabel balance = new JLabel(balanceICON);
+        balance.setBounds(1000, 80, 169, 74);
+        layeredPane.add(balance, Integer.valueOf(2));
 
-        contentpane.add(spin_btn);
-        add(balance);
-        add(bet);
+        MyImageIcon betICON = new MyImageIcon(MyConstants.BET_ICON).resize(169, 74);
+        JLabel bet = new JLabel(betICON);
+        bet.setBounds(1000, 250, 169, 74);
+        layeredPane.add(bet, Integer.valueOf(2));
+
+        balanceDISPLAY = new JTextField();
+        balanceDISPLAY.setBounds(1025, 180, 200, 50);
+        balanceDISPLAY.setFont(new Font("SanSerif", Font.BOLD, 30));
+        balanceDISPLAY.setVisible(true);
+        balanceDISPLAY.setEditable(false);
+        layeredPane.add(balanceDISPLAY, Integer.valueOf(2));
+
+        betINPUT = new JTextArea();
+        betINPUT.setFont(new Font("SanSerif", Font.BOLD, 30));
+        betINPUT.setBounds(1025, 350, 200, 50); // Adjust position and size as needed
+        betINPUT.setEditable(true);
+        layeredPane.add(betINPUT, Integer.valueOf(2));
+
+        contentpane.add(layeredPane, BorderLayout.CENTER);
+        validate();
+        repaint();
+
     }
+
+
 
     public void check_slot(float bet) {
         boolean bigWin = true;
@@ -168,3 +210,5 @@ class SlotLabel extends JLabel {
         }
     }
 }
+
+

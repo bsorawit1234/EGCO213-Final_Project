@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.*;
 
-public class MainApplication extends JFrame implements ActionListener {
+public class MainApplication extends JFrame implements ActionListener, ComponentListener {
     //private JLabel contentpane;
     private JPanel contentPane;
 
@@ -46,6 +46,7 @@ public class MainApplication extends JFrame implements ActionListener {
         setContentPane(contentPane);
 
         addComponents();
+        addComponentListener(this);
     }
 
     public void resizeButtons() {
@@ -126,7 +127,7 @@ public class MainApplication extends JFrame implements ActionListener {
         gbcButtonPanel.gridy = 1;
         gbcButtonPanel.anchor = GridBagConstraints.CENTER;
         //gbcButtonPanel.insets = new Insets(70, 0, 0, 0);
-        //gbcButtonPanel.insets = new Insets((int) (frameheight * 0.1), 0, 0, 0);
+        gbcButtonPanel.insets = new Insets((int) (frameheight * 0.1), 0, 0, 0);
 
         headPanel.add(buttonPanel, gbcButtonPanel);
         contentPane.add(headPanel, BorderLayout.NORTH);
@@ -168,6 +169,26 @@ public class MainApplication extends JFrame implements ActionListener {
             this.setVisible(false);
         }
         // Add more conditions for other buttons as needed (e.g., registration button)
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        resizeButtons();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
     }
 }
 
