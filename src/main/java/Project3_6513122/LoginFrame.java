@@ -4,17 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
     private JFrame ParentFrame;
-    private JPanel contentpane;
+    private JPanel contentpane, containerPassword;
     private JLabel drawpane;
     private int framewidth = MyConstants.FRAMEWIDTH;
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private JPasswordField  passwordField;
     private JTextArea       usernameTextArea;
     private JButton         btn_submit, btn_register;
+    private JRadioButton    showPw;
     private ArrayList<User> UserList;
     private User user;
     public LoginFrame(JFrame pf, ArrayList<User> ul) {
@@ -67,6 +70,39 @@ public class LoginFrame extends JFrame {
         passwordField.setEchoChar('*'); // To hide the password characters
         drawpane.add(passwordField);
 
+        showPw = new JRadioButton();
+        showPw.setBackground(Color.white);
+        showPw.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPw.setSelected(true);
+                passwordField.setEchoChar((char) 0);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPw.setSelected(false);
+                passwordField.setEchoChar('*');
+            }
+
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if(showPw.isSelected()) {
+//                   showPw.setSelected(true);
+//                   passwordField.setEchoChar((char) 0);
+//                } else {
+//                    showPw.setSelected(false);
+//                    passwordField.setEchoChar('*');
+//                }
+//            }
+        });
+        containerPassword = new JPanel(new BorderLayout());
+        containerPassword.add(passwordField, BorderLayout.CENTER);
+        containerPassword.add(showPw, BorderLayout.EAST);
+        containerPassword.setVisible(true);
+        containerPassword.setBounds(320, 350, 350, 30);
+        drawpane.add(containerPassword);
+
         btn_submit = new JButton("Submit");
         btn_submit.setFont(new Font("Trend Sans One", Font.PLAIN, 50));
         btn_submit.setBounds(300, 400,400 , 50);
@@ -76,8 +112,10 @@ public class LoginFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     user = login(usernameTextArea.getText(), new String(passwordField.getPassword()), UserList);
+                    UserFrame userFrame = new UserFrame(ParentFrame, user, UserList);
+                    userFrame.setVisible(true);
+                    dispose();
                 } catch (MyException err) {
-                    /*show JDialogue*/
                     JOptionPane.showMessageDialog(getParent(),err.getMessage());
                     usernameTextArea.setText("");
                     passwordField.setText("");
@@ -109,19 +147,20 @@ public class LoginFrame extends JFrame {
     }
 
     public User login(String username, String password, ArrayList<User> UserList) throws MyException {
+        if(username.isBlank() || password.isBlank()) throw new MyException("Please enter somethings.");
         if(UserList != null) {
-            for(User u : UserList) {
-                if(u.getUsername().equals(username)) {
-                    if(u.getPassword().equals(password)) {
-                        return u;
+            for(int i = 0; i < UserList.size(); i++) {
+                if(UserList.get(i).getUsername().equals(username)) {
+                    if(UserList.get(i).getPassword().equals(password)) {
+                        return UserList.get(i);
                     } else {
                         throw new MyException("Username or Password is incorrect.");
                     }
                 } else {
-                    throw new MyException("Username or Password is incorrect.");
+                    if(i == UserList.size()-1) throw new MyException("Username or Password is incorrect.");
                 }
             }
         }
-        return null;
+        throw new MyException("username or Password is incorrect");
     }
 }
