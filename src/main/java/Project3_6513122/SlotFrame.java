@@ -58,7 +58,7 @@ public class SlotFrame extends JFrame {
         JButton lever = new JButton("Lever");
         lever.setBounds(x + 50, y, 50, 50);
         lever.addActionListener(e -> {
-            for(int i = 0; i < 10; i++){
+            for(int i = 0; i < 10; i++) {
                 Timer t = new Timer(150, e1 -> {
                     for (ArrayList<JLabel> row : slot) {
                         for (JLabel s : row) {
