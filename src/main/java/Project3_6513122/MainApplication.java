@@ -7,19 +7,16 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.*;
 
-public class MainApplication extends JFrame implements ActionListener, ComponentListener {
-    //private JLabel contentpane;
+public class MainApplication extends JFrame implements ActionListener{
+    private JLabel drawpane;
     private JPanel contentPane;
-
     private int framewidth = MyConstants.FRAMEWIDTH;
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private int playheight = MyConstants.PLAYHEIGHT;
     private int playwidth = MyConstants.PLAYWIDTH;
     private int htpwidth = MyConstants.HTPWIDTH;
     private int htpheight = MyConstants.HTPHEIGHT;
-
     private JButton btn_play, btn_htp;
-
     private ArrayList<User> UserList = new ArrayList<User>();
 
     public static void main(String[] args) { new MainApplication(); }
@@ -34,38 +31,11 @@ public class MainApplication extends JFrame implements ActionListener, Component
         this.setTitle("SLOTTY69 🎰");
         this.setResizable(true);
 
-        contentPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Image img = new ImageIcon(MyConstants.BG_HOME).getImage();
-                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-        contentPane.setLayout(null); // Or use a layout manager for components
-        setContentPane(contentPane);
-
         addComponents();
-        addComponentListener(this);
-    }
-
-    public void resizeButtons() {
-        // Calculate new button sizes based on the frame's current size
-        int newButtonWidth = (int) (getWidth() * 0.2); // 20% of the frame width
-        int newButtonHeight = (int) (getHeight() * 0.1); // 10% of the frame height
-
-        // Set the new size for the buttons
-        btn_play.setPreferredSize(new Dimension(newButtonWidth, newButtonHeight));
-        btn_htp.setPreferredSize(new Dimension(newButtonWidth, newButtonHeight));
-
-        // Repaint the content pane to reflect the changes
-        contentPane.revalidate();
-        contentPane.repaint();
     }
 
     private void constructsList() {
         if((new File(MyConstants.PATH)).exists()) {
-            //construct ArrayList
             try{
                 Scanner scan = new Scanner(new FileReader(MyConstants.SHEET));
                 String line;
@@ -83,57 +53,53 @@ public class MainApplication extends JFrame implements ActionListener, Component
     }
     
     public void addComponents() {
+        contentPane = (JPanel)getContentPane();
+        contentPane.setLayout(null);
 
-        contentPane.setLayout(new BorderLayout());
-
-        JPanel headPanel = new JPanel(new GridBagLayout());
-        headPanel.setOpaque(false);
+        drawpane = new JLabel();
+        MyImageIcon background = new MyImageIcon(MyConstants.BG_HOME).resize(framewidth, frameheight);
+        drawpane.setIcon(background);
+        drawpane.setBounds(0, 0, framewidth, frameheight);
+        drawpane.setLayout(null);
 
         MyImageIcon headICON = new MyImageIcon(MyConstants.HEAD_ICON).resize(423, 201);
         JLabel head = new JLabel(headICON);
-        //head.setBounds(470, 0, 423, 201);
+        head.setBounds(470, 0, 423, 201);
+        contentPane.add(head);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        headPanel.add(head, gbc);
-
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 0, 0));
+        JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
+        buttonPanel.setBounds(0, 0, framewidth, frameheight); // Adjust these bounds as needed
+        buttonPanel.setLayout(null);
 
         MyImageIcon playBUTTON = new MyImageIcon(MyConstants.PLAY_ICON).resize(playwidth, playheight);
         btn_play = new JButton(playBUTTON);
-        //btn_play.setBounds(900, 280, playwidth, playheight);
+        btn_play.setBounds(380, 290, playwidth, playheight);
         btn_play.setBorderPainted(false);
         btn_play.setContentAreaFilled(false);
         btn_play.setFocusPainted(false);
         btn_play.setOpaque(false);
         btn_play.addActionListener(this);
-        buttonPanel.add(btn_play);
 
         MyImageIcon htpBUTTON = new MyImageIcon(MyConstants.HOWTOPLAY_ICON).resize(htpwidth, htpheight);
         btn_htp = new JButton(htpBUTTON);
-        //btn_htp.setBounds(380, 570,htpwidth , htpheight);
+        btn_htp.setBounds(380, 580,htpwidth , htpheight);
         btn_htp.setBorderPainted(false);
         btn_htp.setContentAreaFilled(false);
         btn_htp.setFocusPainted(false);
         btn_htp.setOpaque(false);
         btn_htp.addActionListener(this);
+
         buttonPanel.add(btn_htp);
+        buttonPanel.add(btn_play);
 
-        GridBagConstraints gbcButtonPanel = new GridBagConstraints();
-        gbcButtonPanel.gridx = 0;
-        gbcButtonPanel.gridy = 1;
-        gbcButtonPanel.anchor = GridBagConstraints.CENTER;
-        //gbcButtonPanel.insets = new Insets(70, 0, 0, 0);
-        gbcButtonPanel.insets = new Insets((int) (frameheight * 0.1), 0, 0, 0);
+        drawpane.add(buttonPanel);
+        contentPane.add(drawpane);
 
-        headPanel.add(buttonPanel, gbcButtonPanel);
-        contentPane.add(headPanel, BorderLayout.NORTH);
+        setContentPane(contentPane);
 
-        contentPane.validate();
-        contentPane.repaint();
+        validate();
+        repaint();
     }
     
     private void login_page() {
@@ -143,52 +109,29 @@ public class MainApplication extends JFrame implements ActionListener, Component
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newFrame.setResizable(false);
 
-        // Add components or modify as needed for the new frame
-        // For example:
         JLabel label = new JLabel("This is a new frame!");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.PLAIN, 24));
         newFrame.add(label);
 
         newFrame.setVisible(true);
-        //this.setVisible(false); // Hide the current frame
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_play) {
-//            LoginFrame loginFrame = new LoginFrame(this, UserList);
-//            loginFrame.setVisible(true);
+            LoginFrame loginFrame = new LoginFrame(this, UserList);
+            loginFrame.setVisible(true);
+            this.setVisible(false);
 //            RegisterFrame registerFrame = new RegisterFrame(this, UserList);
 //            registerFrame.setVisible(true);
-            new SlotFrame(this).setVisible(true);
-            this.setVisible(false);
+//            new SlotFrame(this).setVisible(true);
+//            this.setVisible(false);
         } else if (e.getSource() == btn_htp) {
             HowtoplayFrame howToPlayFrame = new HowtoplayFrame();
             howToPlayFrame.setVisible(true);
             this.setVisible(false);
         }
-        // Add more conditions for other buttons as needed (e.g., registration button)
-    }
-
-    @Override
-    public void componentResized(ComponentEvent e) {
-        resizeButtons();
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-
     }
 }
 
