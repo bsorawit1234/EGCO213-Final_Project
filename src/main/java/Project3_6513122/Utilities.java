@@ -16,12 +16,12 @@ interface MyConstants {
     static final String SLOT_CARD = PATH + "/slot_card/";
 
     //----- Sizes and locations
-    static final int FRAMEWIDTH  = 1000;
-    static final int FRAMEHEIGHT = 635;
-    static final int PLAYWIDTH  = 499;
-    static final int PLAYHEIGHT  = 219;
-    static final int HTPHEIGHT  = 120;
-    static final int HTPWIDTH  = 522;
+    static final int FRAMEWIDTH  = 1366;
+    static final int FRAMEHEIGHT = 768;
+    static final int PLAYWIDTH  = 599;
+    static final int PLAYHEIGHT  = 263;
+    static final int HTPHEIGHT  = 138;
+    static final int HTPWIDTH  = 599;
 }
 
 class MyImageIcon extends ImageIcon {
