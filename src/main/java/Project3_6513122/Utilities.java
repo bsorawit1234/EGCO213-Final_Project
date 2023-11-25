@@ -14,6 +14,8 @@ interface MyConstants {
     static final String BG_LOGIN     = PATH + "bg-login.jpg";
     static final String HEAD_ICON     = PATH + "slotty69logo.png";
     static final String SLOT_CARD = PATH + "/slot_card/";
+    static final String SLOT_MAINBG = PATH + "bg-slotmaingame.jpg";
+    static final String BET_ICON = PATH + "bet-.png";
 
     //----- Sizes and locations
     static final int FRAMEWIDTH  = 1366;
