@@ -44,15 +44,15 @@ public class LoginFrame extends JFrame {
         JLabel label = new JLabel(Orange);
         JLabel username = new JLabel("Username : ");
         JLabel password = new JLabel("Password : ");
-        label.setBounds(300, 50,400 , 500);
+        label.setBounds(400, 50,400 , 500);
         label.setIcon(Orange);
         label.setVisible(true);
         username.setVisible(true);
-        username.setBounds(20, 80, 200, 100);
+        username.setBounds(120, 80, 200, 100);
         username.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
         username.setForeground(Color.white);
         password.setVisible(true);
-        password.setBounds(20, 200, 200, 100);
+        password.setBounds(120, 200, 200, 100);
         password.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
         password.setForeground(Color.white);
         label.add(username);
@@ -60,13 +60,13 @@ public class LoginFrame extends JFrame {
 
         usernameTextArea = new JTextArea();
         usernameTextArea.setFont(new Font("SanSerif", Font.BOLD, 20));
-        usernameTextArea.setBounds(320, 225, 350, 30); // Adjust position and size as needed
+        usernameTextArea.setBounds(420, 225, 350, 30); // Adjust position and size as needed
         usernameTextArea.setEditable(true);
         drawpane.add(usernameTextArea);
 
         passwordField = new JPasswordField();
         passwordField.setFont(new Font("SanSerif", Font.BOLD, 20));
-        passwordField.setBounds(320, 350, 350, 30); // Adjust position and size as needed
+        passwordField.setBounds(420, 350, 350, 30); // Adjust position and size as needed
         passwordField.setEchoChar('*'); // To hide the password characters
         drawpane.add(passwordField);
 
@@ -100,12 +100,12 @@ public class LoginFrame extends JFrame {
         containerPassword.add(passwordField, BorderLayout.CENTER);
         containerPassword.add(showPw, BorderLayout.EAST);
         containerPassword.setVisible(true);
-        containerPassword.setBounds(320, 350, 350, 30);
+        containerPassword.setBounds(420, 350, 350, 30);
         drawpane.add(containerPassword);
 
         btn_submit = new JButton("Submit");
         btn_submit.setFont(new Font("Trend Sans One", Font.PLAIN, 50));
-        btn_submit.setBounds(300, 400,400 , 50);
+        btn_submit.setBounds(400, 400,400 , 50);
         btn_submit.setForeground(Color.gray);
         btn_submit.addActionListener(new ActionListener() {
             @Override
@@ -128,7 +128,7 @@ public class LoginFrame extends JFrame {
 
         btn_register = new JButton("CREATE ACCOUNT");
         btn_register.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_register.setBounds(300, 500,400 , 50);
+        btn_register.setBounds(400, 500,400 , 50);
         btn_register.setForeground(Color.gray);
         btn_register.addActionListener(new ActionListener() {
             @Override
