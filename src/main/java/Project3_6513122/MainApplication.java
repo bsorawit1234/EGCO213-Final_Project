@@ -35,15 +35,14 @@ public class MainApplication extends JFrame implements ActionListener{
     }
 
     private void constructsList() {
-            //construct ArrayList
-        if((new File(MyConstants.PATH)).exists()) {
-            try{
+        //construct ArrayList
+            try {
                 Scanner scan = new Scanner(new FileReader(MyConstants.SHEET));
                 String line;
                 String[] col;
                 User user;
 
-                while(scan.hasNext()) {
+                while (scan.hasNext()) {
                     line = scan.nextLine();
                     col = line.split(" ");
                     user = new User(col[0], col[1]);
@@ -55,88 +54,88 @@ public class MainApplication extends JFrame implements ActionListener{
                 System.err.println(e);
             }
     }
-    
-    public void addComponents() {
-        contentPane = (JPanel)getContentPane();
-        contentPane.setLayout(null);
 
-        drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.BG_HOME).resize(framewidth, frameheight);
-        drawpane.setIcon(background);
-        drawpane.setBounds(0, 0, framewidth, frameheight);
-        drawpane.setLayout(null);
+        public void addComponents () {
+            contentPane = (JPanel) getContentPane();
+            contentPane.setLayout(null);
 
-        MyImageIcon headICON = new MyImageIcon(MyConstants.HEAD_ICON).resize(423, 201);
-        JLabel head = new JLabel(headICON);
-        head.setBounds(470, 0, 423, 201);
-        contentPane.add(head);
+            drawpane = new JLabel();
+            MyImageIcon background = new MyImageIcon(MyConstants.BG_HOME).resize(framewidth, frameheight);
+            drawpane.setIcon(background);
+            drawpane.setBounds(0, 0, framewidth, frameheight);
+            drawpane.setLayout(null);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setBounds(0, 0, framewidth, frameheight); // Adjust these bounds as needed
-        buttonPanel.setLayout(null);
+            MyImageIcon headICON = new MyImageIcon(MyConstants.HEAD_ICON).resize(423, 201);
+            JLabel head = new JLabel(headICON);
+            head.setBounds(470, 0, 423, 201);
+            contentPane.add(head);
 
-        MyImageIcon playBUTTON = new MyImageIcon(MyConstants.PLAY_ICON).resize(playwidth, playheight);
-        btn_play = new JButton(playBUTTON);
-        btn_play.setBounds(380, 290, playwidth, playheight);
-        btn_play.setBorderPainted(false);
-        btn_play.setContentAreaFilled(false);
-        btn_play.setFocusPainted(false);
-        btn_play.setOpaque(false);
-        btn_play.addActionListener(this);
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setOpaque(false);
+            buttonPanel.setBounds(0, 0, framewidth, frameheight); // Adjust these bounds as needed
+            buttonPanel.setLayout(null);
 
-        MyImageIcon htpBUTTON = new MyImageIcon(MyConstants.HOWTOPLAY_ICON).resize(htpwidth, htpheight);
-        btn_htp = new JButton(htpBUTTON);
-        btn_htp.setBounds(380, 580,htpwidth , htpheight);
-        btn_htp.setBorderPainted(false);
-        btn_htp.setContentAreaFilled(false);
-        btn_htp.setFocusPainted(false);
-        btn_htp.setOpaque(false);
-        btn_htp.addActionListener(this);
+            MyImageIcon playBUTTON = new MyImageIcon(MyConstants.PLAY_ICON).resize(playwidth, playheight);
+            btn_play = new JButton(playBUTTON);
+            btn_play.setBounds(380, 290, playwidth, playheight);
+            btn_play.setBorderPainted(false);
+            btn_play.setContentAreaFilled(false);
+            btn_play.setFocusPainted(false);
+            btn_play.setOpaque(false);
+            btn_play.addActionListener(this);
 
-        buttonPanel.add(btn_htp);
-        buttonPanel.add(btn_play);
+            MyImageIcon htpBUTTON = new MyImageIcon(MyConstants.HOWTOPLAY_ICON).resize(htpwidth, htpheight);
+            btn_htp = new JButton(htpBUTTON);
+            btn_htp.setBounds(380, 580, htpwidth, htpheight);
+            btn_htp.setBorderPainted(false);
+            btn_htp.setContentAreaFilled(false);
+            btn_htp.setFocusPainted(false);
+            btn_htp.setOpaque(false);
+            btn_htp.addActionListener(this);
 
-        drawpane.add(buttonPanel);
-        contentPane.add(drawpane);
+            buttonPanel.add(btn_htp);
+            buttonPanel.add(btn_play);
 
-        setContentPane(contentPane);
+            drawpane.add(buttonPanel);
+            contentPane.add(drawpane);
 
-        validate();
-        repaint();
-    }
-    
-    private void login_page() {
-        JFrame newFrame = new JFrame("Login");
-        newFrame.setSize(framewidth, frameheight);
-        newFrame.setLocationRelativeTo(null);
-        newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        newFrame.setResizable(false);
+            setContentPane(contentPane);
 
-        JLabel label = new JLabel("This is a new frame!");
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.PLAIN, 24));
-        newFrame.add(label);
+            validate();
+            repaint();
+        }
 
-        newFrame.setVisible(true);
-    }
+        private void login_page () {
+            JFrame newFrame = new JFrame("Login");
+            newFrame.setSize(framewidth, frameheight);
+            newFrame.setLocationRelativeTo(null);
+            newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            newFrame.setResizable(false);
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn_play) {
-            LoginFrame loginFrame = new LoginFrame(this, UserList);
-            loginFrame.setVisible(true);
-            this.setVisible(false);
+            JLabel label = new JLabel("This is a new frame!");
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setFont(new Font("Arial", Font.PLAIN, 24));
+            newFrame.add(label);
+
+            newFrame.setVisible(true);
+        }
+
+        @Override
+        public void actionPerformed (ActionEvent e){
+            if (e.getSource() == btn_play) {
+                LoginFrame loginFrame = new LoginFrame(this, UserList);
+                loginFrame.setVisible(true);
+                this.setVisible(false);
 //            RegisterFrame registerFrame = new RegisterFrame(this, UserList);
 //            registerFrame.setVisible(true);
 //            new SlotFrame(this).setVisible(true);
 //            this.setVisible(false);
-        } else if (e.getSource() == btn_htp) {
-            HowtoplayFrame howToPlayFrame = new HowtoplayFrame();
-            howToPlayFrame.setVisible(true);
-            this.setVisible(false);
+            } else if (e.getSource() == btn_htp) {
+                HowtoplayFrame howToPlayFrame = new HowtoplayFrame();
+                howToPlayFrame.setVisible(true);
+                this.setVisible(false);
+            }
         }
-    }
 }
 
 
