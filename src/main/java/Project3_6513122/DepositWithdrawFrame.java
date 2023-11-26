@@ -36,7 +36,7 @@ public class DepositWithdrawFrame extends JFrame {
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setTitle("Deposit Page");
 
         Addinput(this);
@@ -44,39 +44,53 @@ public class DepositWithdrawFrame extends JFrame {
 
     public void Addinput(JFrame frame) {
         contentpane = (JPanel)getContentPane();
+        contentpane.setLayout(null);
 
         drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(1200, 675);
+        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(framewidth, frameheight);
         drawpane.setIcon(background);
+        drawpane.setBounds(0, 0, framewidth, frameheight);
         drawpane.setLayout(null);
 
-        MyImageIcon Orange = new MyImageIcon(MyConstants.ORANGE).resize(500, 300);
-        JLabel label = new JLabel(Orange);
-        JLabel username = new JLabel("Username : " + UserList.get(index).getUsername());
-        JLabel money = new JLabel("Money       : " + UserList.get(index).getMoney());
-        JLabel credits = new JLabel("Credits      : " + UserList.get(index).getCredits());
-        label.setBounds(300, 50,400 , 500);
-        label.setIcon(Orange);
-        label.setVisible(true);
+        MyImageIcon usernameICON = new MyImageIcon(MyConstants.USERNAMESHOW).resize(369, 40);
+        JLabel label1 = new JLabel(usernameICON);
+        MyImageIcon creditICON = new MyImageIcon(MyConstants.CREDITSHOW).resize(260, 40);
+        JLabel label2 = new JLabel(creditICON);
+        MyImageIcon moneyICON = new MyImageIcon(MyConstants.MONEYSHOW).resize(260, 40);
+        JLabel label3 = new JLabel(moneyICON);
+
+        JLabel username = new JLabel(UserList.get(index).getUsername());
+        JLabel money = new JLabel(String.valueOf(UserList.get(index).getMoney()));
+        JLabel credits = new JLabel(String.valueOf(UserList.get(index).getCredits()));
+
+        label1.setBounds(30, 30, 369, 40);
+        label1.setIcon(usernameICON);
+        label1.setVisible(true);
+        label3.setBounds(30, 100, 260, 40);
+        label3.setIcon(creditICON);
+        label3.setVisible(true);
+        label2.setBounds(30, 170, 260, 40);
+        label2.setIcon(moneyICON);
+        label2.setVisible(true);
 
         username.setVisible(true);
-        username.setBounds(20, 30, 300, 100);
+        username.setBounds(200, 0, 369, 40);
         username.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
         username.setForeground(Color.white);
 
         money.setVisible(true);
-        money.setBounds(20, 60, 300, 100);
+        money.setBounds(140, 0, 260, 40);
         money.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
         money.setForeground(Color.white);
 
         credits.setVisible(true);
-        credits.setBounds(20, 90, 300, 100);
+        credits.setBounds(150, 0, 260, 40);
         credits.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
         credits.setForeground(Color.white);
 
-        label.add(username);
-        label.add(money);
-        label.add(credits);
+        label1.add(username);
+        label2.add(money);
+        label3.add(credits);
 
         JLabel proceed = new JLabel(whichFrame + " Amount");
         proceed.setVisible(true);
@@ -120,10 +134,13 @@ public class DepositWithdrawFrame extends JFrame {
         btn_proceed.addActionListener(this::actionPerformed);
         drawpane.add(btn_proceed);
 
-        btn_back = new JButton("Back");
-        btn_back.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_back.setBounds(100, 480, 200, 50);
-        btn_back.setForeground(Color.gray);
+        MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
+        btn_back = new JButton(backBUTTON);
+        btn_back.setBounds(30, 630,169 , 74);
+        btn_back.setBorderPainted(false);
+        btn_back.setContentAreaFilled(false);
+        btn_back.setFocusPainted(false);
+        btn_back.setOpaque(false);
         btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -146,7 +163,9 @@ public class DepositWithdrawFrame extends JFrame {
         });
         frame.setFocusable(true);
 
-        drawpane.add(label);
+        drawpane.add(label1);
+        drawpane.add(label2);
+        drawpane.add(label3);
         contentpane.add(drawpane);
         repaint();
         validate();

@@ -44,13 +44,13 @@ class RegisterFrame extends JFrame {
         drawpane.setIcon(background);
         drawpane.setLayout(null);
 
-        MyImageIcon Orange = new MyImageIcon(MyConstants.ORANGE).resize(500, 300);
-        JLabel label = new JLabel(Orange);
+        MyImageIcon red = new MyImageIcon(MyConstants.RED).resize(500, 300);
+        JLabel label = new JLabel(red);
         JLabel username = new JLabel("Username : ");
         JLabel password = new JLabel("Password : ");
         JLabel repassword = new JLabel("Re-enter Password : ");
         label.setBounds(300, 50,400 , 500);
-        label.setIcon(Orange);
+        label.setIcon(red);
         label.setVisible(true);
         username.setVisible(true);
         username.setBounds(20, 80, 200, 100);
