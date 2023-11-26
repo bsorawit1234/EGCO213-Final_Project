@@ -6,20 +6,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class UserFrame extends JFrame {
-    private JFrame ParentFrame;
+    private JFrame mainFrame;
     private JPanel contentpane;
     private JLabel drawpane;
     private int framewidth = MyConstants.FRAMEWIDTH;
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private JButton         btn_play, btn_deposit, btn_withdraw, btn_logout;
     private ArrayList<User> UserList;
-    private User user;
-    public UserFrame(JFrame pf, User us, ArrayList<User> ul) {
-        ParentFrame = pf;
-        user = us;
+    private int index;
+    public UserFrame(JFrame pf, int id, ArrayList<User> ul) {
+        mainFrame = pf;
+        index = id;
         UserList = ul;
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
@@ -27,10 +29,10 @@ public class UserFrame extends JFrame {
         this.setResizable(false);
         this.setTitle("User Page");
 
-        Addinput();
+        Addinput(this);
     }
 
-    public void Addinput() {
+    public void Addinput(JFrame userFrame) {
         contentpane = (JPanel)getContentPane();
 
         drawpane = new JLabel();
@@ -40,10 +42,17 @@ public class UserFrame extends JFrame {
 
         MyImageIcon Orange = new MyImageIcon(MyConstants.ORANGE).resize(500, 300);
         JLabel label = new JLabel(Orange);
-        JLabel username = new JLabel("Username : " + user.getUsername());
-        JLabel money = new JLabel("Money       : " + user.getMoney());
-        JLabel credits = new JLabel("Credits      : " + user.getCredits());
-        label.setBounds(380, 50,500 , 500);
+
+        JLabel username = new JLabel("Username : " + UserList.get(index).getUsername());
+        JLabel money = new JLabel("Money       : " + UserList.get(index).getMoney());
+        JLabel credits = new JLabel("Credits      : " + UserList.get(index).getCredits());
+        label.setBounds(300, 50,400 , 500);
+      
+        // JLabel username = new JLabel("Username : " + user.getUsername());
+        // JLabel money = new JLabel("Money       : " + user.getMoney());
+        // JLabel credits = new JLabel("Credits      : " + user.getCredits());
+        // label.setBounds(380, 50,500 , 500);
+      
         label.setIcon(Orange);
         label.setVisible(true);
 
@@ -53,12 +62,12 @@ public class UserFrame extends JFrame {
         username.setForeground(Color.white);
 
         money.setVisible(true);
-        money.setBounds(20, 60, 200, 100);
+        money.setBounds(20, 60, 300, 100);
         money.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
         money.setForeground(Color.white);
 
         credits.setVisible(true);
-        credits.setBounds(20, 90, 200, 100);
+        credits.setBounds(20, 90, 300, 100);
         credits.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
         credits.setForeground(Color.white);
 
@@ -73,9 +82,13 @@ public class UserFrame extends JFrame {
         btn_play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SlotFrame slotFrame = new SlotFrame(ParentFrame, user, UserList);
+                /* SLOT_FRAME */
+                SlotFrame slotFrame = new SlotFrame(userFrame);
                 slotFrame.setVisible(true);
-                dispose();
+              
+//                 SlotFrame slotFrame = new SlotFrame(ParentFrame, user, UserList);
+//                 slotFrame.setVisible(true);
+//                 dispose();
             }
         });
         drawpane.add(btn_play);
@@ -87,7 +100,9 @@ public class UserFrame extends JFrame {
         btn_deposit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                DepositFrame depositFrame = new DepositFrame(mainFrame, index, UserList, "Deposit");
+                depositFrame.setVisible(true);
+                userFrame.dispose();
             }
         });
         drawpane.add(btn_deposit);
@@ -99,7 +114,9 @@ public class UserFrame extends JFrame {
         btn_withdraw.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                WithdrawFrame withdrawFrame = new WithdrawFrame(mainFrame, index, UserList, "Withdraw");
+                withdrawFrame.setVisible(true);
+                userFrame.dispose();
             }
         });
         drawpane.add(btn_withdraw);
@@ -113,6 +130,7 @@ public class UserFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 /* overwrite file with new UserList information */
                 try{
+                    Files.delete(Paths.get(MyConstants.SHEET));
                     PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
                     for(User u : UserList) {
                         write.println(u.getUsername() + " " + u.getPassword() + " " + u.getMoney() + " " + u.getCredits());
@@ -122,7 +140,7 @@ public class UserFrame extends JFrame {
                     System.err.println(er);
                 }
 
-                ParentFrame.setVisible(true);
+                mainFrame.setVisible(true);
                 dispose();
             }
         });

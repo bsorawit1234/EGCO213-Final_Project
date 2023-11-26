@@ -156,8 +156,8 @@ class RegisterFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    register(usernameTextArea.getText(), new String(passwordField.getPassword()), new String(repasswordField.getPassword()), UserList);
-                    UserFrame userFrame = new UserFrame(ParentFrame, new User(usernameTextArea.getText(), new String(passwordField.getPassword())), UserList);
+                    int index = register(usernameTextArea.getText(), new String(passwordField.getPassword()), new String(repasswordField.getPassword()), UserList);
+                    UserFrame userFrame = new UserFrame(ParentFrame, index, UserList);
                     userFrame.setVisible(true);
                     dispose();
                 } catch (IsCertify error) {
@@ -181,7 +181,7 @@ class RegisterFrame extends JFrame {
         validate();
     }
 
-    public void register(String username, String password, String repassword, ArrayList<User> UserList) throws MyException, IsCertify {
+    public int register(String username, String password, String repassword, ArrayList<User> UserList) throws MyException, IsCertify {
         if(!isCertify) {
             throw new IsCertify("Please check the box that you are older than 20 years old");
         }
@@ -198,7 +198,10 @@ class RegisterFrame extends JFrame {
             throw new MyException("Username and Password cannot contain space.");
         } else if(username.length() < 5 || password.length() < 5) {
             throw new MyException("Username and Password length must be greater than 5 characters.");
-        } else if(!password.equals(repassword)) {
+        } else if(username.length() > 10) {
+            throw new MyException("Username cannot exceed 10 characters");
+        }
+        else if(!password.equals(repassword)) {
             throw new MyException("Password doesn't match.");
         }
 
@@ -208,10 +211,12 @@ class RegisterFrame extends JFrame {
         /* write to file */
         try{
             PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
-            write.println(username + " " + password + " " + newUser.getMoney() + " " + newUser.getCredits());
+            write.println(newUser.getUsername() + " " + newUser.getPassword() + " " + newUser.getMoney() + " " + newUser.getCredits());
             write.close();
         } catch (Exception e) {
             System.err.println(e);
         }
+
+        return UserList.size() - 1;
     }
 }

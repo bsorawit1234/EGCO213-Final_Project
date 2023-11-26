@@ -22,7 +22,7 @@ public class MainApplication extends JFrame implements ActionListener{
     public static void main(String[] args) { new MainApplication(); }
 
     public MainApplication() {
-        constructsList();
+        if((new File(MyConstants.SHEET).exists())) constructsList();
 
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
@@ -35,21 +35,25 @@ public class MainApplication extends JFrame implements ActionListener{
     }
 
     private void constructsList() {
+            //construct ArrayList
         if((new File(MyConstants.PATH)).exists()) {
             try{
                 Scanner scan = new Scanner(new FileReader(MyConstants.SHEET));
                 String line;
                 String[] col;
+                User user;
 
                 while(scan.hasNext()) {
                     line = scan.nextLine();
                     col = line.split(" ");
-                    UserList.add(new User(col[0], col[1]));
+                    user = new User(col[0], col[1]);
+                    user.setMoney(Integer.parseInt(col[2]));
+                    user.setCredits(Integer.parseInt(col[3]));
+                    UserList.add(user);
                 }
             } catch (Exception e) {
                 System.err.println(e);
             }
-        }
     }
     
     public void addComponents() {
@@ -134,4 +138,5 @@ public class MainApplication extends JFrame implements ActionListener{
         }
     }
 }
+
 
