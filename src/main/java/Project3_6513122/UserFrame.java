@@ -36,16 +36,23 @@ public class UserFrame extends JFrame {
         contentpane = (JPanel)getContentPane();
 
         drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(1200, 675);
+        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(framewidth, frameheight);
         drawpane.setIcon(background);
         drawpane.setLayout(null);
 
         MyImageIcon Orange = new MyImageIcon(MyConstants.ORANGE).resize(500, 300);
         JLabel label = new JLabel(Orange);
+
         JLabel username = new JLabel("Username : " + UserList.get(index).getUsername());
         JLabel money = new JLabel("Money       : " + UserList.get(index).getMoney());
         JLabel credits = new JLabel("Credits      : " + UserList.get(index).getCredits());
         label.setBounds(300, 50,400 , 500);
+      
+        // JLabel username = new JLabel("Username : " + user.getUsername());
+        // JLabel money = new JLabel("Money       : " + user.getMoney());
+        // JLabel credits = new JLabel("Credits      : " + user.getCredits());
+        // label.setBounds(380, 50,500 , 500);
+      
         label.setIcon(Orange);
         label.setVisible(true);
 
@@ -70,7 +77,7 @@ public class UserFrame extends JFrame {
 
         btn_play = new JButton("Play");
         btn_play.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_play.setBounds(300, 250,400 , 50);
+        btn_play.setBounds(380, 250,400 , 50);
         btn_play.setForeground(Color.gray);
         btn_play.addActionListener(new ActionListener() {
             @Override
@@ -78,13 +85,17 @@ public class UserFrame extends JFrame {
                 /* SLOT_FRAME */
                 SlotFrame slotFrame = new SlotFrame(userFrame);
                 slotFrame.setVisible(true);
+              
+//                 SlotFrame slotFrame = new SlotFrame(ParentFrame, user, UserList);
+//                 slotFrame.setVisible(true);
+//                 dispose();
             }
         });
         drawpane.add(btn_play);
 
         btn_deposit = new JButton("DEPOSIT");
         btn_deposit.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_deposit.setBounds(300, 320,400 , 50);
+        btn_deposit.setBounds(380, 320,400 , 50);
         btn_deposit.setForeground(Color.gray);
         btn_deposit.addActionListener(new ActionListener() {
             @Override
@@ -98,7 +109,7 @@ public class UserFrame extends JFrame {
 
         btn_withdraw = new JButton("WITHDRAW");
         btn_withdraw.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_withdraw.setBounds(300, 390,400 , 50);
+        btn_withdraw.setBounds(380, 390,400 , 50);
         btn_withdraw.setForeground(Color.gray);
         btn_withdraw.addActionListener(new ActionListener() {
             @Override
@@ -112,7 +123,7 @@ public class UserFrame extends JFrame {
 
         btn_logout = new JButton("LOGOUT");
         btn_logout.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_logout.setBounds(300, 460,400 , 50);
+        btn_logout.setBounds(380, 460,400 , 50);
         btn_logout.setForeground(Color.gray);
         btn_logout.addActionListener(new ActionListener() {
             @Override
