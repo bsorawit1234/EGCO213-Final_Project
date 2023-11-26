@@ -16,7 +16,7 @@ public class LoginFrame extends JFrame {
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private JPasswordField  passwordField;
     private JTextArea       usernameTextArea;
-    private JButton         btn_submit, btn_register;
+    private JButton         btn_submit, btn_register, btn_back;
     private JRadioButton    showPw;
     private ArrayList<User> UserList;
     private User user;
@@ -26,7 +26,7 @@ public class LoginFrame extends JFrame {
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable( true);
         this.setTitle("Login");
 
         Addinput();
@@ -34,39 +34,44 @@ public class LoginFrame extends JFrame {
 
     public void Addinput() {
         contentpane = (JPanel)getContentPane();
+        contentpane.setLayout(null);
 
         drawpane = new JLabel();
         MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(framewidth, frameheight);
         drawpane.setIcon(background);
+        drawpane.setBounds(0, 0, framewidth, frameheight);
         drawpane.setLayout(null);
 
-        MyImageIcon Orange = new MyImageIcon(MyConstants.ORANGE).resize(500, 300);
-        JLabel label = new JLabel(Orange);
-        JLabel username = new JLabel("Username : ");
-        JLabel password = new JLabel("Password : ");
-        label.setBounds(400, 50,400 , 500);
-        label.setIcon(Orange);
+        MyImageIcon red = new MyImageIcon(MyConstants.RED).resize(383, 324);
+        JLabel label = new JLabel(red);
+        MyImageIcon username = new MyImageIcon(MyConstants.USERNAME).resize(248, 42);
+        JLabel label1 = new JLabel(username);
+        MyImageIcon password = new MyImageIcon(MyConstants.PASSWORD).resize(248, 42);
+        JLabel label2 = new JLabel(password);
+        label.setBounds(450, 200,383 , 324);
+        label.setIcon(red);
         label.setVisible(true);
-        username.setVisible(true);
-        username.setBounds(120, 80, 200, 100);
-        username.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
-        username.setForeground(Color.white);
-        password.setVisible(true);
-        password.setBounds(120, 200, 200, 100);
-        password.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
-        password.setForeground(Color.white);
-        label.add(username);
-        label.add(password);
+
+        label1.setBounds(20, 20, 248, 42);
+        label1.setIcon(username);
+        label1.setVisible(true);
+
+        label2.setBounds(20, 145, 248, 42);
+        label2.setIcon(password);
+        label2.setVisible(true);
+
+        label.add(label1);
+        label.add(label2);
 
         usernameTextArea = new JTextArea();
-        usernameTextArea.setFont(new Font("SanSerif", Font.BOLD, 20));
-        usernameTextArea.setBounds(420, 225, 350, 30); // Adjust position and size as needed
+        usernameTextArea.setFont(new Font("SanSerif", Font.BOLD, 30));
+        usernameTextArea.setBounds(470, 280, 350, 40); // Adjust position and size as needed
         usernameTextArea.setEditable(true);
         drawpane.add(usernameTextArea);
 
         passwordField = new JPasswordField();
-        passwordField.setFont(new Font("SanSerif", Font.BOLD, 20));
-        passwordField.setBounds(420, 350, 350, 30); // Adjust position and size as needed
+        passwordField.setFont(new Font("SanSerif", Font.BOLD, 30));
+        passwordField.setBounds(470, 500, 350, 40); // Adjust position and size as needed
         passwordField.setEchoChar('*'); // To hide the password characters
         drawpane.add(passwordField);
 
@@ -84,29 +89,21 @@ public class LoginFrame extends JFrame {
                 showPw.setSelected(false);
                 passwordField.setEchoChar('*');
             }
-
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                if(showPw.isSelected()) {
-//                   showPw.setSelected(true);
-//                   passwordField.setEchoChar((char) 0);
-//                } else {
-//                    showPw.setSelected(false);
-//                    passwordField.setEchoChar('*');
-//                }
-//            }
         });
         containerPassword = new JPanel(new BorderLayout());
         containerPassword.add(passwordField, BorderLayout.CENTER);
         containerPassword.add(showPw, BorderLayout.EAST);
         containerPassword.setVisible(true);
-        containerPassword.setBounds(420, 350, 350, 30);
+        containerPassword.setBounds(470, 400, 350, 40);
         drawpane.add(containerPassword);
 
-        btn_submit = new JButton("Submit");
-        btn_submit.setFont(new Font("Trend Sans One", Font.PLAIN, 50));
-        btn_submit.setBounds(400, 400,400 , 50);
-        btn_submit.setForeground(Color.gray);
+        MyImageIcon submitBUTTON = new MyImageIcon(MyConstants.SUBMIT).resize(142, 42);
+        btn_submit = new JButton(submitBUTTON);
+        btn_submit.setBounds(470, 460,142 , 42);
+        btn_submit.setBorderPainted(false);
+        btn_submit.setContentAreaFilled(false);
+        btn_submit.setFocusPainted(false);
+        btn_submit.setOpaque(false);
         btn_submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,10 +123,13 @@ public class LoginFrame extends JFrame {
         });
         drawpane.add(btn_submit);
 
-        btn_register = new JButton("CREATE ACCOUNT");
-        btn_register.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_register.setBounds(400, 500,400 , 50);
-        btn_register.setForeground(Color.gray);
+        MyImageIcon createACCBUTTON = new MyImageIcon(MyConstants.CREATEACC).resize(401, 59);
+        btn_register = new JButton(createACCBUTTON);
+        btn_register.setBounds(445, 550,401 , 59);
+        btn_register.setBorderPainted(false);
+        btn_register.setContentAreaFilled(false);
+        btn_register.setFocusPainted(false);
+        btn_register.setOpaque(false);
         btn_register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,6 +139,23 @@ public class LoginFrame extends JFrame {
             }
         });
         drawpane.add(btn_register);
+
+        MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
+        btn_back = new JButton(backBUTTON);
+        btn_back.setBounds(30, 630,169 , 74);
+        btn_back.setBorderPainted(false);
+        btn_back.setContentAreaFilled(false);
+        btn_back.setFocusPainted(false);
+        btn_back.setOpaque(false);
+        btn_back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainApplication mainApplication = new MainApplication();
+                mainApplication.setVisible(true);
+                dispose();
+            }
+        });
+        drawpane.add(btn_back);
 
         drawpane.add(label);
         contentpane.add(drawpane);

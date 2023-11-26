@@ -10,12 +10,24 @@ interface MyConstants {
     static final String BG_HOME     = PATH + "bg-play.png";
     static final String PLAY_ICON   = PATH + "play-button.png";
     static final String HOWTOPLAY_ICON   = PATH + "howtoplay.png";
-    static final String ORANGE   = PATH + "ORANGE.jpeg";
+    static final String RED   = PATH + "box-for-login.png";
     static final String BG_LOGIN     = PATH + "bg-login.jpg";
     static final String HEAD_ICON     = PATH + "slotty69logo.png";
-    static final String SLOT_CARD = PATH + "/slot_card/";
+    static final String SLOT_CARD = PATH + "/slot_cha_nobg/";
     static final String SLOT_MAINBG = PATH + "bg-slotmaingame.jpg";
     static final String BET_ICON = PATH + "bet-.png";
+    static final String USERNAME = PATH + "username.png";
+    static final String PASSWORD = PATH + "password.png";
+    static final String SUBMIT = PATH + "summit.png";
+    static final String CREATEACC = PATH + "create-acc.png";
+    static final String BACK = PATH + "back-button.png";
+    static final String PLAY_ICON2   = PATH + "play3-button.png";
+    static final String USERNAMESHOW = PATH + "username_show.png";
+    static final String MONEYSHOW = PATH + "money-show.png";
+    static final String CREDITSHOW = PATH + "credits-show.png";
+    static final String WITHDRAW2 = PATH + "withdraw-button2.png";
+    static final String DEPOSIT2 = PATH + "Deposit-button2.png";
+    static final String LOGOUT2 = PATH + "log-out-button2.png";
 
     //----- Sizes and locations
     static final int FRAMEWIDTH  = 1366;

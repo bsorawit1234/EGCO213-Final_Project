@@ -3,16 +3,13 @@ package Project3_6513122;
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SlotFrame extends JFrame {
     private JTextArea betINPUT;
-    private JFrame ParentFrame;
+    private JFrame mainFrame, ParentFrame;
     private JPanel contentpane;
     private JPanel drawpane;
     private JTextField balanceDISPLAY;
@@ -25,10 +22,11 @@ public class SlotFrame extends JFrame {
     private User user;
     private int index;
 
-    public SlotFrame(JFrame pf, int id, ArrayList<User> ul) {
+    public SlotFrame(JFrame pf, int id, ArrayList<User> ul, JFrame mf) {
         ParentFrame = pf;
         index = id;
         UserList = ul;
+        mainFrame = mf;
         user = UserList.get(index);
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
@@ -45,13 +43,11 @@ public class SlotFrame extends JFrame {
 
         drawpane = new JPanel();
         drawpane.setBounds(0, 0, framewidth, frameheight);
-        //drawpane.setLayout(new GridLayout(3, 3));
 
         MyImageIcon background = new MyImageIcon(MyConstants.SLOT_MAINBG).resize(framewidth, frameheight);
         JLabel backgroundLabel = new JLabel(background);
         backgroundLabel.setBounds(0, 0, framewidth, frameheight);
         layeredPane.add(backgroundLabel, Integer.valueOf(0));
-        //drawpane.add(backgroundLabel);
 
 
         int x = 0, y = 100;
@@ -93,6 +89,24 @@ public class SlotFrame extends JFrame {
                 check_slot(100);
             }
         });
+
+        MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
+        JButton btn_back = new JButton(backBUTTON);
+        btn_back.setBounds(30, 630,169 , 74);
+        btn_back.setBorderPainted(false);
+        btn_back.setContentAreaFilled(false);
+        btn_back.setFocusPainted(false);
+        btn_back.setOpaque(false);
+
+        btn_back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserFrame userFrame = new UserFrame(mainFrame, index, UserList);
+                userFrame.setVisible(true);
+                dispose();
+            }
+        });
+        layeredPane.add(btn_back, Integer.valueOf(2));
 
         MyImageIcon balanceICON = new MyImageIcon(MyConstants.BET_ICON).resize(169, 74);
         JLabel balance = new JLabel(balanceICON);
@@ -195,7 +209,7 @@ class SlotLabel extends JLabel {
         curX = x;
         curY = y;
         ID = (int)(Math.random() * 10);
-        MyImageIcon startImg = new MyImageIcon(MyConstants.SLOT_CARD + ID + ".jpg").resize(width, height);
+        MyImageIcon startImg = new MyImageIcon(MyConstants.SLOT_CARD + ID + ".png").resize(width, height);
         setIcon(startImg);
         setBounds(curX, curY, width, height);
         setVisible(true);
@@ -208,7 +222,7 @@ class SlotLabel extends JLabel {
     public void setCorrect(int w, int h) {
         width = w;
         height = h;
-        setIcon(new MyImageIcon(MyConstants.SLOT_CARD + ID + ".jpg").resize(width, height));
+        setIcon(new MyImageIcon(MyConstants.SLOT_CARD + ID + ".png").resize(width, height));
         setBounds(curX, curY, width, height);
         setVisible(true);
         validate();
@@ -218,7 +232,7 @@ class SlotLabel extends JLabel {
         ID = (int)(Math.random() * 10);
         for(int i = 0; i < 10; i++) {
             ID = (ID + 1) % 10;
-            MyImageIcon img = new MyImageIcon(MyConstants.SLOT_CARD + ID + ".jpg").resize(100, 100);
+            MyImageIcon img = new MyImageIcon(MyConstants.SLOT_CARD + ID + ".png").resize(width, height);
             setIcon(img);
             repaint();
 
