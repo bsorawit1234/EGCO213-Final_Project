@@ -83,12 +83,10 @@ public class UserFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /* SLOT_FRAME */
-                SlotFrame slotFrame = new SlotFrame(userFrame);
+                SlotFrame slotFrame = new SlotFrame(userFrame, index, UserList);
                 slotFrame.setVisible(true);
-              
-//                 SlotFrame slotFrame = new SlotFrame(ParentFrame, user, UserList);
-//                 slotFrame.setVisible(true);
-//                 dispose();
+
+                dispose();
             }
         });
         drawpane.add(btn_play);

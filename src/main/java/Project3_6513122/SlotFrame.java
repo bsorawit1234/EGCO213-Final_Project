@@ -1,9 +1,12 @@
 package Project3_6513122;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,11 +23,13 @@ public class SlotFrame extends JFrame {
     private ArrayList<SlotLabel> slotty = new ArrayList<SlotLabel>();
     private ArrayList<User> UserList;
     private User user;
+    private int index;
 
-    public SlotFrame(JFrame pf, User us, ArrayList<User> ul) {
+    public SlotFrame(JFrame pf, int id, ArrayList<User> ul) {
         ParentFrame = pf;
-        user = us;
+        index = id;
         UserList = ul;
+        user = UserList.get(index);
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,6 +116,26 @@ public class SlotFrame extends JFrame {
         betINPUT.setFont(new Font("SanSerif", Font.BOLD, 30));
         betINPUT.setBounds(1025, 350, 200, 50); // Adjust position and size as needed
         betINPUT.setEditable(true);
+        betINPUT.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char enteredChar = e.getKeyChar();
+                String enteredText = betINPUT.getText() + e.getKeyChar();
+
+                if(!Character.isDigit(enteredChar)) {
+                    e.consume(); // prevent event if the key that user has typed is not a number.
+                }
+
+                try {
+                    int enteredNum = Integer.parseInt(enteredText);
+                    if(enteredNum > user.getCredits()) {
+                        e.consume();
+                    }
+                } catch (NumberFormatException err) {
+                    e.consume();
+                }
+            }
+        });
         layeredPane.add(betINPUT, Integer.valueOf(2));
 
         contentpane.add(layeredPane, BorderLayout.CENTER);
