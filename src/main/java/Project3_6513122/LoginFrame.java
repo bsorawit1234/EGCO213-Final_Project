@@ -150,8 +150,9 @@ public class LoginFrame extends JFrame {
         btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainApplication mainApplication = new MainApplication();
-                mainApplication.setVisible(true);
+//                MainApplication mainApplication = new MainApplication();
+//                mainApplication.setVisible(true);
+                mainFrame.setVisible(true);
                 dispose();
             }
         });

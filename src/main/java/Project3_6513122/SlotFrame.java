@@ -3,6 +3,10 @@ package Project3_6513122;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
@@ -266,6 +270,18 @@ public class SlotFrame extends JFrame {
         }
         user.setCredits(credits);
         user.setBet(0);
+
+        try {
+            Files.delete(Paths.get(MyConstants.SHEET));
+            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
+            for (User u : UserList)
+                write.println(u.getUsername() + " " + u.getPassword() + " " + u.getMoney() + " " + u.getCredits());
+            write.close();
+        } catch (Exception er) {
+            System.err.println(er);
+        }
+
+
     }
 }
 

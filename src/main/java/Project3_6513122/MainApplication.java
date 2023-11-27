@@ -105,20 +105,20 @@ public class MainApplication extends JFrame implements ActionListener{
             repaint();
         }
 
-        private void login_page () {
-            JFrame newFrame = new JFrame("Login");
-            newFrame.setSize(framewidth, frameheight);
-            newFrame.setLocationRelativeTo(null);
-            newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            newFrame.setResizable(false);
-
-            JLabel label = new JLabel("This is a new frame!");
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setFont(new Font("Arial", Font.PLAIN, 24));
-            newFrame.add(label);
-
-            newFrame.setVisible(true);
-        }
+//        private void login_page () {
+//            JFrame newFrame = new JFrame("Login");
+//            newFrame.setSize(framewidth, frameheight);
+//            newFrame.setLocationRelativeTo(null);
+//            newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            newFrame.setResizable(false);
+//
+//            JLabel label = new JLabel("This is a new frame!");
+//            label.setHorizontalAlignment(SwingConstants.CENTER);
+//            label.setFont(new Font("Arial", Font.PLAIN, 24));
+//            newFrame.add(label);
+//
+//            newFrame.setVisible(true);
+//        }
 
         @Override
         public void actionPerformed (ActionEvent e){

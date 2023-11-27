@@ -19,12 +19,12 @@ public class DepositFrame extends DepositWithdrawFrame {
         if (e.getSource() == btn_proceed) {
             try {
                 if (amountField.getText().isBlank()) throw new MyException("Please enter something.");
-                if (Integer.parseInt(amountField.getText()) > UserList.get(index).getMoney() || Integer.parseInt(amountField.getText()) < 0) {
-                    throw new MyException("You cannot deposit money with the value that you have provided");
-                }
-                if (Integer.parseInt(amountField.getText()) > 1000000000) {
-                    throw new MyException("You cannot deposit money more than 999999999");
-                }
+//                if (Integer.parseInt(amountField.getText()) > UserList.get(index).getMoney() || Integer.parseInt(amountField.getText()) < 0) {
+//                    throw new MyException("You cannot deposit money with the value that you have provided");
+//                }
+//                if (Integer.parseInt(amountField.getText()) > 1000000000) {
+//                    throw new MyException("You cannot deposit money more than 999999999");
+//                }
                 showTableModalDialog(this, Integer.parseInt(amountField.getText()));
             } catch (NumberFormatException err) {
                 JOptionPane.showMessageDialog(this, "Please enter number only");
