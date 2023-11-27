@@ -1,11 +1,10 @@
 package Project3_6513122;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CountDownLatch;
 
 public class SlotFrame extends JFrame {
     private JTextArea betINPUT;
@@ -21,6 +20,7 @@ public class SlotFrame extends JFrame {
     private ArrayList<User> UserList;
     private User user;
     private int index;
+    private static final CountDownLatch latch = new CountDownLatch(9);
 
     public SlotFrame(JFrame pf, int id, ArrayList<User> ul, JFrame mf) {
         ParentFrame = pf;
@@ -54,7 +54,8 @@ public class SlotFrame extends JFrame {
         for(int i = 0; i < 3; i++) {
             x = 400;
             for(int j = 0; j < 3; j++) {
-                SlotLabel s = new SlotLabel(x, y);
+                SlotLabel s = new SlotLabel(x, y, (int)(Math.random() * 10));
+//                SlotLabel s = new SlotLabel(x, y, 3);
                 slotty.add(s);
                 layeredPane.add(s, Integer.valueOf(1));
                 x += 200;
@@ -67,28 +68,6 @@ public class SlotFrame extends JFrame {
         JButton spin_btn = new JButton(spin_text[0]);
         spin_btn.setBounds(x + 50, 500, 100, 100);
         layeredPane.add(spin_btn, Integer.valueOf(2));
-
-        spin_btn.addActionListener(e -> {
-            for(SlotLabel s: slotty) {
-                if(spinCountBtn % 2 == 0) {
-                    Thread slotThread = new Thread() {
-                        public void run() {
-                            s.setSpin(true);
-                            while(s.isSpin()) s.spin();
-                        }
-                    };
-                    slotThread.start();
-                } else {
-                    s.setSpin(false);
-                }
-            }
-            spinCountBtn++;
-            spin_btn.setText(spin_text[spinCountBtn % 2]);
-
-            if(spinCountBtn != 0 && spinCountBtn % 2 == 0) {
-                check_slot(100);
-            }
-        });
 
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
         JButton btn_back = new JButton(backBUTTON);
@@ -144,20 +123,69 @@ public class SlotFrame extends JFrame {
                     int enteredNum = Integer.parseInt(enteredText);
                     if(enteredNum > user.getCredits()) {
                         e.consume();
+                    } else {
+                        user.setBet(enteredNum);
                     }
                 } catch (NumberFormatException err) {
                     e.consume();
                 }
             }
         });
-        layeredPane.add(betINPUT, Integer.valueOf(2));
 
+        spin_btn.addActionListener(e -> {
+            if(spinCountBtn % 2 == 0) {
+                for(SlotLabel s: slotty) {
+                    Thread slotThread = new Thread() {
+                        public void run() {
+                            s.setSpin(true);
+                            while (s.isSpin()) s.spin();
+                            latch.countDown();
+                        }
+                    };
+                    slotThread.start();
+                }
+            } else {
+                for(SlotLabel s: slotty) {
+                    s.setSpin(false);
+                }
+            }
+
+            spinCountBtn++;
+            spin_btn.setText(spin_text[spinCountBtn % 2]);
+
+            if(spinCountBtn != 0 && spinCountBtn % 2 == 0) {
+                try {
+                    latch.await();
+                    check_slot();
+                } catch (InterruptedException err) {
+                    System.err.println(err);
+                }
+            } else if(spinCountBtn % 2 != 0) {
+                if(user.getBet() <= user.getCredits()) {
+                    user.setCredits(user.getCredits() - user.getBet());
+                }
+                betINPUT.setText(null);
+            }
+
+            balanceDISPLAY.setText(String.valueOf(user.getCredits()));
+        });
+
+        layeredPane.add(betINPUT, Integer.valueOf(2));
         contentpane.add(layeredPane, BorderLayout.CENTER);
         validate();
         repaint();
     }
 
-    public void check_slot(float bet) {
+    public void check_slot() {
+        int credits = user.getCredits();
+        int bet = user.getBet();
+
+        System.out.println("\nBET: " + bet);
+        for(int i = 0; i < 9; i++) {
+            if(i % 3 == 0 && i != 0) System.out.println();
+            System.out.printf("%3d", slotty.get(i).getID());
+        }
+
         boolean bigWin = true;
         for(int i = 1; i < slotty.size(); i++) {
             if (slotty.get(0).getID() != slotty.get(i).getID()) {
@@ -167,37 +195,77 @@ public class SlotFrame extends JFrame {
         }
 
         if(bigWin) {
-            bet *= 20;
+            user.setCredits(credits + (bet * 100));
         } else {
             // Diagonal
-            if (slotty.get(0).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(8).getID()) {
-                bet *= 5;
-            }
-            if (slotty.get(2).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(6).getID()) {
-                bet *= 5;
-            }
-            // Horizontal
-            if (slotty.get(0).getID() == slotty.get(1).getID() && slotty.get(1).getID() == slotty.get(2).getID()) {
-                bet *= 3;
-            }
-            if (slotty.get(3).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(5).getID()) {
-                bet *= 3;
-            }
-            if (slotty.get(6).getID() == slotty.get(7).getID() && slotty.get(7).getID() == slotty.get(8).getID()) {
-                bet *= 3;
-            }
-            // Vertical
-            if (slotty.get(0).getID() == slotty.get(3).getID() && slotty.get(3).getID() == slotty.get(6).getID()) {
-                bet *= 3;
-            }
-            if (slotty.get(1).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(7).getID()) {
-                bet *= 3;
-            }
-            if (slotty.get(2).getID() == slotty.get(5).getID() && slotty.get(5).getID() == slotty.get(8).getID()) {
-                bet *= 3;
+            if (slotty.get(0).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(8).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(0).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(8).getID()) {
+                credits += bet * 3;
+            } else if(slotty.get(0).getID() == slotty.get(8).getID()) {
+                credits += bet * 2;
             }
 
+            if (slotty.get(2).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(6).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(2).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(6).getID()) {
+                credits += bet * 3;
+            } else if(slotty.get(2).getID() == slotty.get(6).getID()) {
+                credits += bet * 2;
+            }
+
+            // Horizontal
+            if (slotty.get(0).getID() >= 10 && slotty.get(1).getID() >= 10 && slotty.get(2).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(0).getID() == slotty.get(1).getID() && slotty.get(1).getID() == slotty.get(2).getID()) {
+                credits += bet * 3;
+            } else if(slotty.get(0).getID() == slotty.get(2).getID()) {
+                credits += bet * 2;
+            }
+
+            if (slotty.get(3).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(5).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(3).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(5).getID()) {
+                credits += bet * 3;
+            } else if(slotty.get(3).getID() == slotty.get(5).getID()) {
+                credits += bet * 2;
+            }
+
+            if (slotty.get(6).getID() >= 10 && slotty.get(7).getID() >= 10 && slotty.get(8).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(6).getID() == slotty.get(7).getID() && slotty.get(7).getID() == slotty.get(8).getID()) {
+                credits += bet * 3;
+            } else if(slotty.get(6).getID() == slotty.get(8).getID()) {
+                credits += bet * 2;
+            }
+
+            // Vertical
+            if (slotty.get(0).getID() >= 10 && slotty.get(3).getID() >= 10 && slotty.get(6).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(0).getID() == slotty.get(3).getID() && slotty.get(3).getID() == slotty.get(6).getID()) {
+                credits += bet * 3;
+            } else if (slotty.get(0).getID() == slotty.get(6).getID()) {
+                credits += bet * 2;
+            }
+
+            if (slotty.get(1).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(7).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(1).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(7).getID()) {
+                credits += bet * 3;
+            } else if(slotty.get(1).getID() == slotty.get(7).getID()) {
+                credits += bet * 2;
+            }
+
+            if (slotty.get(2).getID() >= 10 && slotty.get(5).getID() >= 10 && slotty.get(8).getID() >= 10) {
+                credits += bet * 3;
+            } else if (slotty.get(2).getID() == slotty.get(5).getID() && slotty.get(5).getID() == slotty.get(8).getID()) {
+                credits += bet * 3;
+            } else if(slotty.get(2).getID() == slotty.get(8).getID()) {
+                credits += bet * 2;
+            }
         }
+        user.setCredits(credits);
+        user.setBet(0);
     }
 }
 
@@ -205,10 +273,10 @@ class SlotLabel extends JLabel {
     private int width = 100, height = 100, curX, curY;
     private boolean spin = false;
     private int ID;
-    public SlotLabel(int x, int y) {
+    public SlotLabel(int x, int y, int id) {
         curX = x;
         curY = y;
-        ID = (int)(Math.random() * 10);
+        ID = id; // NO FACE
         MyImageIcon startImg = new MyImageIcon(MyConstants.SLOT_CARD + ID + ".png").resize(width, height);
         setIcon(startImg);
         setBounds(curX, curY, width, height);
@@ -219,26 +287,14 @@ class SlotLabel extends JLabel {
     public int getID() { return ID; }
     public boolean isSpin() { return spin; }
     public void setSpin(boolean s) { spin = s; }
-    public void setCorrect(int w, int h) {
-        width = w;
-        height = h;
-        setIcon(new MyImageIcon(MyConstants.SLOT_CARD + ID + ".png").resize(width, height));
-        setBounds(curX, curY, width, height);
-        setVisible(true);
-        validate();
-        repaint();
-    }
     public void spin() {
-        ID = (int)(Math.random() * 10);
-        for(int i = 0; i < 10; i++) {
-            ID = (ID + 1) % 10;
-            MyImageIcon img = new MyImageIcon(MyConstants.SLOT_CARD + ID + ".png").resize(width, height);
-            setIcon(img);
-            repaint();
+        ID = (int)(Math.random() * 14);
+        MyImageIcon img = new MyImageIcon(MyConstants.SLOT_CARD + ID + ".png").resize(width, height);
+        setIcon(img);
+        repaint();
 
-            try { Thread.sleep(100); }
-            catch (InterruptedException e) { e.printStackTrace(); }
-        }
+        try { Thread.sleep(100); }
+        catch (InterruptedException e) { e.printStackTrace(); }
     }
 }
 

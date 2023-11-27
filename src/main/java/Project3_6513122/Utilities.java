@@ -13,7 +13,7 @@ interface MyConstants {
     static final String RED   = PATH + "box-for-login.png";
     static final String BG_LOGIN     = PATH + "bg-login.jpg";
     static final String HEAD_ICON     = PATH + "slotty69logo.png";
-    static final String SLOT_CARD = PATH + "/slot_cha_nobg/";
+    static final String SLOT_CARD = PATH + "/slot_cha_white/";
     static final String SLOT_MAINBG = PATH + "bg-slotmaingame.jpg";
     static final String BET_ICON = PATH + "bet-.png";
     static final String USERNAME = PATH + "username.png";
