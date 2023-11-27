@@ -161,25 +161,8 @@ public class UserFrame extends JFrame {
                 dispose();
             }
         });
+
         drawpane.add(btn_logout);
-
-        MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
-        btn_back = new JButton(backBUTTON);
-        btn_back.setBounds(30, 630,169 , 74);
-        btn_back.setBorderPainted(false);
-        btn_back.setContentAreaFilled(false);
-        btn_back.setFocusPainted(false);
-        btn_back.setOpaque(false);
-        btn_back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainApplication mainApplication = new MainApplication();
-                mainApplication.setVisible(true);
-                dispose();
-            }
-        });
-        drawpane.add(btn_back);
-
         drawpane.add(label1);
         drawpane.add(label2);
         drawpane.add(label3);
