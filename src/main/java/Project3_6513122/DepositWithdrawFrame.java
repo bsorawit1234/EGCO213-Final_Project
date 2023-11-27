@@ -113,9 +113,24 @@ public class DepositWithdrawFrame extends JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char enteredChar = e.getKeyChar();
+                String enteredText = amountField.getText() + e.getKeyChar();
 
                 if(!Character.isDigit(enteredChar)) {
                     e.consume(); // prevent event if the key that user has typed is not a number.
+                }
+                try {
+                    int enteredNum = Integer.parseInt(enteredText);
+                    if(whichFrame.equals("Deposit")) {
+                        if (enteredNum > UserList.get(index).getMoney()) {
+                            e.consume();
+                        }
+                    } else if(whichFrame.equals("Withdraw")) {
+                        if (enteredNum > UserList.get(index).getCredits()) {
+                            e.consume();
+                        }
+                    }
+                } catch (NumberFormatException err) {
+                    e.consume();
                 }
             }
         });
