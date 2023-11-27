@@ -174,6 +174,16 @@ public class SlotFrame extends JFrame {
             balanceDISPLAY.setText(String.valueOf(user.getCredits()));
         });
 
+        try {
+            Files.delete(Paths.get(MyConstants.SHEET));
+            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
+            for (User u : UserList)
+                write.println(u.getUsername() + " " + u.getPassword() + " " + u.getMoney() + " " + u.getCredits());
+            write.close();
+        } catch (Exception er) {
+            System.err.println(er);
+        }
+
         layeredPane.add(betINPUT, Integer.valueOf(2));
         contentpane.add(layeredPane, BorderLayout.CENTER);
         validate();
@@ -271,15 +281,6 @@ public class SlotFrame extends JFrame {
         user.setCredits(credits);
         user.setBet(0);
 
-        try {
-            Files.delete(Paths.get(MyConstants.SHEET));
-            PrintWriter write = new PrintWriter(new FileWriter(MyConstants.SHEET, true));
-            for (User u : UserList)
-                write.println(u.getUsername() + " " + u.getPassword() + " " + u.getMoney() + " " + u.getCredits());
-            write.close();
-        } catch (Exception er) {
-            System.err.println(er);
-        }
 
     }
 }
