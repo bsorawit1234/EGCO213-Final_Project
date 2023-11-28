@@ -27,7 +27,18 @@ interface MyConstants {
     static final String CREDITSHOW = PATH + "credits-show.png";
     static final String WITHDRAW2 = PATH + "withdraw-button2.png";
     static final String DEPOSIT2 = PATH + "Deposit-button2.png";
+    static final String WITHDRAW = PATH + "withdraw-button.png";
+    static final String DEPOSIT = PATH + "Deposit-button.png";
     static final String LOGOUT2 = PATH + "log-out-button2.png";
+    static final String WITHDRAWAMOUNTICON = PATH + "withdrawamount-text.png";
+    static final String DEPOSITAMOUNTICON = PATH + "depositamount-text.png";
+    static final String REPASSWORD = PATH + "re-password.png";
+    static final String REGISTER = PATH + "register-button.png";
+    static final String BALANCE = PATH + "balance-nobg.png";
+    static final String SLOTMACHINE = PATH + "slot-machine.png";
+    static final String ROLL = PATH + "roll-button.png";
+    static final String STOP = PATH + "stop-button.png";
+    static final String HOWTOPLAYPAGE = PATH + "howtoplay-page.png";
 
     //----- Sizes and locations
     static final int FRAMEWIDTH  = 1366;

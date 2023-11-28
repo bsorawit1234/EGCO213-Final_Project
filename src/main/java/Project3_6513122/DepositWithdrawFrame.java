@@ -37,7 +37,7 @@ public class DepositWithdrawFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
-        this.setTitle("Deposit Page");
+        this.setTitle("Deposit & Withdraw Page");
 
         Addinput(this);
     }
@@ -92,12 +92,21 @@ public class DepositWithdrawFrame extends JFrame {
         label2.add(money);
         label3.add(credits);
 
-        JLabel proceed = new JLabel(whichFrame + " Amount");
-        proceed.setVisible(true);
-        proceed.setBounds(400, 270,400 , 40);
-        proceed.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        proceed.setForeground(Color.white);
-        drawpane.add(proceed);
+        if( whichFrame == "Withdraw" ) {
+            MyImageIcon NameAmount = new MyImageIcon(MyConstants.WITHDRAWAMOUNTICON).resize(540, 60);
+            JLabel proceed = new JLabel(NameAmount);
+            proceed.setBounds(425, 250, 540, 60);
+            proceed.setIcon(NameAmount);
+            proceed.setVisible(true);
+            drawpane.add(proceed);
+        } else {
+            MyImageIcon NameAmount = new MyImageIcon(MyConstants.DEPOSITAMOUNTICON).resize(472, 60);
+            JLabel proceed = new JLabel(NameAmount);
+            proceed.setBounds(450, 250, 472, 60);
+            proceed.setIcon(NameAmount);
+            proceed.setVisible(true);
+            drawpane.add(proceed);
+        }
 
         JLabel dollarSign = new JLabel("$");
         dollarSign.setVisible(true);
@@ -106,7 +115,7 @@ public class DepositWithdrawFrame extends JFrame {
 
         amountField = new JTextArea();
         amountField.setFont(new Font("SanSerif", Font.PLAIN, 40));
-        amountField.setBounds(200, 320,600 , 50);
+        amountField.setBounds(390, 350,600 , 50);
         amountField.setEditable(true);
         amountField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         amountField.addKeyListener(new KeyAdapter() {
@@ -139,15 +148,38 @@ public class DepositWithdrawFrame extends JFrame {
         amountContainer.add(dollarSign, BorderLayout.WEST);
         amountContainer.add(amountField, BorderLayout.CENTER);
         amountContainer.setVisible(true);
-        amountContainer.setBounds(200, 320,600 , 50);
+        amountContainer.setBounds(400, 350,600 , 50);
         drawpane.add(amountContainer);
 
-        btn_proceed = new JButton(whichFrame);
-        btn_proceed.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-        btn_proceed.setBounds(680, 480, 200, 50);
-        btn_proceed.setForeground(Color.gray);
-        btn_proceed.addActionListener(this::actionPerformed);
-        drawpane.add(btn_proceed);
+        if( whichFrame == "Withdraw" ) {
+            MyImageIcon proceedBUTTON = new MyImageIcon(MyConstants.WITHDRAW).resize(375, 80);
+            btn_proceed = new JButton(proceedBUTTON);
+            btn_proceed.setBounds(490, 450, 375, 80);
+            btn_proceed.setIcon(proceedBUTTON);
+            btn_proceed.setVisible(true);
+            btn_proceed.setBorderPainted(false);
+            btn_proceed.setContentAreaFilled(false);
+            btn_proceed.setFocusPainted(false);
+            btn_proceed.setOpaque(false);
+            drawpane.add(btn_proceed);
+        } else {
+            MyImageIcon proceedBUTTON = new MyImageIcon(MyConstants.DEPOSIT).resize(300, 80);
+            btn_proceed = new JButton(proceedBUTTON);
+            btn_proceed.setBounds(530, 450, 300, 80);
+            btn_proceed.setIcon(proceedBUTTON);
+            btn_proceed.setVisible(true);
+            btn_proceed.setBorderPainted(false);
+            btn_proceed.setContentAreaFilled(false);
+            btn_proceed.setFocusPainted(false);
+            btn_proceed.setOpaque(false);
+            drawpane.add(btn_proceed);
+        }
+//        btn_proceed = new JButton(whichFrame);
+//        btn_proceed.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
+//        btn_proceed.setBounds(680, 480, 200, 50);
+//        btn_proceed.setForeground(Color.gray);
+//        btn_proceed.addActionListener(this::actionPerformed);
+//        drawpane.add(btn_proceed);
 
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
         btn_back = new JButton(backBUTTON);

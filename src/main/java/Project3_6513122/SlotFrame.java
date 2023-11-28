@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.awt.Image;
 
 public class SlotFrame extends JFrame {
     private JTextArea betINPUT;
@@ -54,22 +55,28 @@ public class SlotFrame extends JFrame {
         layeredPane.add(backgroundLabel, Integer.valueOf(0));
 
 
-        int x = 0, y = 100;
+        int x, y = 120;
         for(int i = 0; i < 3; i++) {
-            x = 400;
+            x = 480;
             for(int j = 0; j < 3; j++) {
                 SlotLabel s = new SlotLabel(x, y, (int)(Math.random() * 10));
                 slotty.add(s);
                 layeredPane.add(s, Integer.valueOf(1));
-                x += 200;
+                x += 125;
             }
-            y += 200;
+            y += 135;
         }
 
-
-        String[] spin_text = {"SPIN", "STOP"}; // Wating for img button spin, stop
-        JButton spin_btn = new JButton(spin_text[0]);
-        spin_btn.setBounds(x + 50, 500, 100, 100);
+        MyImageIcon spinBUTTON = new MyImageIcon(MyConstants.ROLL).resize(173, 168);
+        MyImageIcon stopBUTTON = new MyImageIcon(MyConstants.STOP).resize(173, 168);
+        ImageIcon[] buttonIcons = {spinBUTTON, stopBUTTON};
+        //String[] spin_text = {spinBUTTON, stopBUTTON}; // Wating for img button spin, stop
+        JButton spin_btn = new JButton(buttonIcons[0]);
+        spin_btn.setBounds(1000, 500, 173, 168);
+        spin_btn.setBorderPainted(false);
+        spin_btn.setContentAreaFilled(false);
+        spin_btn.setFocusPainted(false);
+        spin_btn.setOpaque(false);
         layeredPane.add(spin_btn, Integer.valueOf(2));
 
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
@@ -90,18 +97,23 @@ public class SlotFrame extends JFrame {
         });
         layeredPane.add(btn_back, Integer.valueOf(2));
 
-        MyImageIcon balanceICON = new MyImageIcon(MyConstants.BET_ICON).resize(169, 74);
-        JLabel balance = new JLabel(balanceICON);
-        balance.setBounds(1000, 80, 169, 74);
-        layeredPane.add(balance, Integer.valueOf(2));
+//        MyImageIcon balanceICON = new MyImageIcon(MyConstants.BALANCE).resize(315, 70);
+//        JLabel balance = new JLabel(balanceICON);
+//        balance.setBounds(1000, 80, 315, 70);
+//        layeredPane.add(balance, Integer.valueOf(2));
+//
+//        MyImageIcon betICON = new MyImageIcon(MyConstants.BET_ICON).resize(169, 74);
+//        JLabel bet = new JLabel(betICON);
+//        bet.setBounds(1000, 250, 169, 74);
+//        layeredPane.add(bet, Integer.valueOf(2));
 
-        MyImageIcon betICON = new MyImageIcon(MyConstants.BET_ICON).resize(169, 74);
-        JLabel bet = new JLabel(betICON);
-        bet.setBounds(1000, 250, 169, 74);
-        layeredPane.add(bet, Integer.valueOf(2));
+        MyImageIcon slotMACHINE = new MyImageIcon(MyConstants.SLOTMACHINE).resize(906, 733);
+        JLabel slot = new JLabel(slotMACHINE);
+        slot.setBounds(200, 0, 906, 733);
+        layeredPane.add(slot, Integer.valueOf(1));
 
         balanceDISPLAY = new JTextField();
-        balanceDISPLAY.setBounds(1025, 180, 200, 50);
+        balanceDISPLAY.setBounds(650, 530, 180, 35);
         balanceDISPLAY.setFont(new Font("SanSerif", Font.BOLD, 30));
         balanceDISPLAY.setVisible(true);
         balanceDISPLAY.setEditable(false);
@@ -110,7 +122,7 @@ public class SlotFrame extends JFrame {
 
         betINPUT = new JTextArea();
         betINPUT.setFont(new Font("SanSerif", Font.BOLD, 30));
-        betINPUT.setBounds(1025, 350, 200, 50); // Adjust position and size as needed
+        betINPUT.setBounds(650, 575, 180, 35); // Adjust position and size as needed
         betINPUT.setEditable(true);
         betINPUT.addKeyListener(new KeyAdapter() {
             @Override
@@ -162,7 +174,7 @@ public class SlotFrame extends JFrame {
             }
 
             spinCountBtn++;
-            spin_btn.setText(spin_text[spinCountBtn % 2]);
+            spin_btn.setIcon(buttonIcons[spinCountBtn % 2]);
 
             if(spinCountBtn != 0 && spinCountBtn % 2 == 0) {
                 try {

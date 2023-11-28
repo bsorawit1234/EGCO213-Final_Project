@@ -2,8 +2,11 @@ package Project3_6513122;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class HowtoplayFrame extends JFrame {
+    private JLabel drawpane;
+    private JPanel contentPane;
     private int framewidth = MyConstants.FRAMEWIDTH;
     private int frameheight = MyConstants.FRAMEHEIGHT;
 
@@ -11,12 +14,23 @@ public class HowtoplayFrame extends JFrame {
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setTitle("How to play");
 
-        JLabel label = new JLabel("How to play page");
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.PLAIN, 24));
-        this.add(label);
+        contentPane = (JPanel) getContentPane();
+        contentPane.setLayout(null);
+
+        drawpane = new JLabel();
+        MyImageIcon background = new MyImageIcon(MyConstants.HOWTOPLAYPAGE).resize(framewidth, frameheight);
+        drawpane.setIcon(background);
+        drawpane.setBounds(0, 0, framewidth, frameheight);
+        drawpane.setLayout(null);
+
+        contentPane.add(drawpane);
+
+        setContentPane(contentPane);
+
+        validate();
+        repaint();
     }
 }
