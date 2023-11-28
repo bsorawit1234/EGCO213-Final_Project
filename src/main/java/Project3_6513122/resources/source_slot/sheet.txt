@@ -7,4 +7,5 @@ admin admin 0 0
 teeee teeee 200 920
 11111 11111 0 7820820
 zzzzz zzzzz 0 670
-boom3 12345 0 40
+boom3 12345 0 0
+boom4 12345 0 0
