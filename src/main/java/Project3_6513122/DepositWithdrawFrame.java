@@ -161,7 +161,7 @@ public class DepositWithdrawFrame extends JFrame {
             btn_proceed.setContentAreaFilled(false);
             btn_proceed.setFocusPainted(false);
             btn_proceed.setOpaque(false);
-            drawpane.add(btn_proceed);
+//            drawpane.add(btn_proceed);
         } else {
             MyImageIcon proceedBUTTON = new MyImageIcon(MyConstants.DEPOSIT).resize(300, 80);
             btn_proceed = new JButton(proceedBUTTON);
@@ -172,14 +172,14 @@ public class DepositWithdrawFrame extends JFrame {
             btn_proceed.setContentAreaFilled(false);
             btn_proceed.setFocusPainted(false);
             btn_proceed.setOpaque(false);
-            drawpane.add(btn_proceed);
+//            drawpane.add(btn_proceed);
         }
 //        btn_proceed = new JButton(whichFrame);
 //        btn_proceed.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
 //        btn_proceed.setBounds(680, 480, 200, 50);
 //        btn_proceed.setForeground(Color.gray);
-//        btn_proceed.addActionListener(this::actionPerformed);
-//        drawpane.add(btn_proceed);
+        btn_proceed.addActionListener(this::actionPerformed);
+        drawpane.add(btn_proceed);
 
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
         btn_back = new JButton(backBUTTON);
