@@ -131,7 +131,7 @@ public class MainApplication extends JFrame implements ActionListener{
 //            new SlotFrame(this).setVisible(true);
 //            this.setVisible(false);
             } else if (e.getSource() == btn_htp) {
-                HowtoplayFrame howToPlayFrame = new HowtoplayFrame();
+                HowtoplayFrame howToPlayFrame = new HowtoplayFrame(this);
                 howToPlayFrame.setVisible(true);
                 this.setVisible(false);
             }
