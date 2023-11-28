@@ -18,7 +18,7 @@ class RegisterFrame extends JFrame {
     private int frameheight = MyConstants.FRAMEHEIGHT;
     private JPasswordField  passwordField, repasswordField;
     private JTextArea       usernameTextArea;
-    private JButton         btn_submit;
+    private JButton         btn_submit, btn_back;
     private JCheckBox       certify;
     private boolean         isCertify;
     private JRadioButton    showPw1, showPw2;
@@ -40,40 +40,48 @@ class RegisterFrame extends JFrame {
         contentpane = (JPanel)getContentPane();
 
         drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.BG_HOME).resize(framewidth, frameheight);
+        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(framewidth, frameheight);
         drawpane.setIcon(background);
         drawpane.setLayout(null);
 
-        MyImageIcon red = new MyImageIcon(MyConstants.RED).resize(500, 300);
+        MyImageIcon red = new MyImageIcon(MyConstants.RED).resize(383, 324);
         JLabel label = new JLabel(red);
-        JLabel username = new JLabel("Username : ");
-        JLabel password = new JLabel("Password : ");
-        JLabel repassword = new JLabel("Re-enter Password : ");
-        label.setBounds(300, 50,400 , 500);
+        MyImageIcon username = new MyImageIcon(MyConstants.USERNAME).resize(248, 42);
+        JLabel label1 = new JLabel(username);
+        MyImageIcon password = new MyImageIcon(MyConstants.PASSWORD).resize(248, 42);
+        JLabel label2 = new JLabel(password);
+        MyImageIcon repassword = new MyImageIcon(MyConstants.REPASSWORD).resize(338, 45);
+        JLabel label3 = new JLabel(repassword);
+
+        label.setBounds(450, 200,383 , 324);
         label.setIcon(red);
         label.setVisible(true);
-        username.setVisible(true);
-        username.setBounds(20, 80, 200, 100);
-        username.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
-        password.setVisible(true);
-        password.setBounds(20, 180, 200, 100);
-        password.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
-        repassword.setVisible(true);
-        repassword.setBounds(20, 280, 300, 100);
-        repassword.setFont(new Font("Trend Sans One", Font.PLAIN, 25));
-        label.add(username);
-        label.add(password);
-        label.add(repassword);
+
+        label1.setBounds(20, 20, 248, 42);
+        label1.setIcon(username);
+        label1.setVisible(true);
+
+        label2.setBounds(20, 120, 248, 42);
+        label2.setIcon(password);
+        label2.setVisible(true);
+
+        label3.setBounds(15, 220, 338, 45);
+        label3.setIcon(repassword);
+        label3.setVisible(true);
+
+        label.add(label1);
+        label.add(label2);
+        label.add(label3);
 
         usernameTextArea = new JTextArea();
         usernameTextArea.setFont(new Font("SanSerif", Font.BOLD, 20));
-        usernameTextArea.setBounds(320, 200, 350, 30); // Adjust position and size as needed
+        usernameTextArea.setBounds(470, 275, 350, 30); // Adjust position and size as needed
         usernameTextArea.setEditable(true);
         drawpane.add(usernameTextArea);
 
         passwordField = new JPasswordField();
         passwordField.setFont(new Font("SanSerif", Font.BOLD, 20));
-        passwordField.setBounds(320, 300, 350, 30); // Adjust position and size as needed
+        passwordField.setBounds(470, 375, 350, 30); // Adjust position and size as needed
         passwordField.setEchoChar('*'); // To hide the password characters
 
         showPw1 = new JRadioButton();
@@ -99,12 +107,12 @@ class RegisterFrame extends JFrame {
         containerPassword.add(passwordField, BorderLayout.CENTER);
         containerPassword.add(showPw1, BorderLayout.EAST);
         containerPassword.setVisible(true);
-        containerPassword.setBounds(320, 300, 350, 30);
+        containerPassword.setBounds(470, 375, 350, 30);
         drawpane.add(containerPassword);
 
         repasswordField = new JPasswordField();
         repasswordField.setFont(new Font("SanSerif", Font.BOLD, 20));
-        repasswordField.setBounds(320, 400, 350, 30); // Adjust position and size as needed
+        repasswordField.setBounds(470, 475, 350, 30); // Adjust position and size as needed
         repasswordField.setEchoChar('*'); // To hide the password characters
 
         showPw2 = new JRadioButton();
@@ -129,13 +137,13 @@ class RegisterFrame extends JFrame {
         containerRePassword.add(repasswordField, BorderLayout.CENTER);
         containerRePassword.add(showPw2, BorderLayout.EAST);
         containerRePassword.setVisible(true);
-        containerRePassword.setBounds(320, 400, 350, 30);
+        containerRePassword.setBounds(470, 475, 350, 30);
         drawpane.add(containerRePassword);
 
         certify = new JCheckBox();
         certify.setFont(new Font("SanSerif", Font.PLAIN, 16));
         certify.setText("I am certify that I am at least 20 years old.");
-        certify.setBounds(320, 475, 350, 30);
+        certify.setBounds(480, 520, 350, 30);
         certify.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,10 +156,15 @@ class RegisterFrame extends JFrame {
         certify.setForeground(Color.white);
         drawpane.add(certify);
 
-        btn_submit = new JButton("Submit");
-        btn_submit.setFont(new Font("Trend Sans One", Font.PLAIN, 50));
-        btn_submit.setBounds(300, 500,400 , 50);
-        btn_submit.setForeground(Color.gray);
+        MyImageIcon registerBUTTON = new MyImageIcon(MyConstants.REGISTER).resize(277, 74);
+        btn_submit = new JButton(registerBUTTON);
+        btn_submit.setBounds(490, 570, 277, 74);
+        btn_submit.setIcon(registerBUTTON);
+        btn_submit.setVisible(true);
+        btn_submit.setBorderPainted(false);
+        btn_submit.setContentAreaFilled(false);
+        btn_submit.setFocusPainted(false);
+        btn_submit.setOpaque(false);
         btn_submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -174,6 +187,23 @@ class RegisterFrame extends JFrame {
             }
         });
         drawpane.add(btn_submit);
+
+        MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
+        btn_back = new JButton(backBUTTON);
+        btn_back.setBounds(30, 630,169 , 74);
+        btn_back.setBorderPainted(false);
+        btn_back.setContentAreaFilled(false);
+        btn_back.setFocusPainted(false);
+        btn_back.setOpaque(false);
+        btn_back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginFrame loginFrame = new LoginFrame(ParentFrame, UserList);
+                loginFrame.setVisible(true);
+                dispose();
+            }
+        });
+        drawpane.add(btn_back);
 
         drawpane.add(label);
         contentpane.add(drawpane);
