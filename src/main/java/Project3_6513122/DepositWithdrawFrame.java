@@ -151,33 +151,23 @@ public class DepositWithdrawFrame extends JFrame {
         amountContainer.setBounds(400, 350,600 , 50);
         drawpane.add(amountContainer);
 
-        if( whichFrame == "Withdraw" ) {
-            MyImageIcon proceedBUTTON = new MyImageIcon(MyConstants.WITHDRAW).resize(375, 80);
+        MyImageIcon proceedBUTTON;
+        if( whichFrame.equals("Withdraw") ) {
+            proceedBUTTON = new MyImageIcon(MyConstants.WITHDRAW).resize(375, 80);
             btn_proceed = new JButton(proceedBUTTON);
             btn_proceed.setBounds(490, 450, 375, 80);
-            btn_proceed.setIcon(proceedBUTTON);
-            btn_proceed.setVisible(true);
-            btn_proceed.setBorderPainted(false);
-            btn_proceed.setContentAreaFilled(false);
-            btn_proceed.setFocusPainted(false);
-            btn_proceed.setOpaque(false);
-//            drawpane.add(btn_proceed);
         } else {
-            MyImageIcon proceedBUTTON = new MyImageIcon(MyConstants.DEPOSIT).resize(300, 80);
+            proceedBUTTON = new MyImageIcon(MyConstants.DEPOSIT).resize(300, 80);
             btn_proceed = new JButton(proceedBUTTON);
             btn_proceed.setBounds(530, 450, 300, 80);
-            btn_proceed.setIcon(proceedBUTTON);
-            btn_proceed.setVisible(true);
-            btn_proceed.setBorderPainted(false);
-            btn_proceed.setContentAreaFilled(false);
-            btn_proceed.setFocusPainted(false);
-            btn_proceed.setOpaque(false);
-//            drawpane.add(btn_proceed);
         }
-//        btn_proceed = new JButton(whichFrame);
-//        btn_proceed.setFont(new Font("Trend Sans One", Font.PLAIN, 30));
-//        btn_proceed.setBounds(680, 480, 200, 50);
-//        btn_proceed.setForeground(Color.gray);
+
+        btn_proceed.setIcon(proceedBUTTON);
+        btn_proceed.setVisible(true);
+        btn_proceed.setBorderPainted(false);
+        btn_proceed.setContentAreaFilled(false);
+        btn_proceed.setFocusPainted(false);
+        btn_proceed.setOpaque(false);
         btn_proceed.addActionListener(this::actionPerformed);
         drawpane.add(btn_proceed);
 
