@@ -141,6 +141,7 @@ public class SlotFrame extends JFrame {
                         e.consume();
                     } else {
                         user.setBet(enteredNum);
+                        spin_btn.setEnabled(enteredNum != 0);
                     }
                 } catch (NumberFormatException err) {
                     e.consume();
@@ -148,18 +149,11 @@ public class SlotFrame extends JFrame {
             }
         });
 
+
+        spin_btn.setEnabled(!betINPUT.getText().trim().isEmpty() && !betINPUT.getText().trim().equals("0"));
         spin_btn.addActionListener(e -> {
             if(spinCountBtn % 2 == 0) {
-
-                if(betINPUT.getText() == null) {
-                    setEnabled(false);
-                } else if(Integer.parseInt(betINPUT.getText()) == 0) {
-                    setEnabled(false);
-                } else {
-                    setEnabled(true);
-                }
                 btn_back.setEnabled(false);
-
                 for(SlotLabel s: slotty) {
                     Thread slotThread = new Thread() {
                         public void run() {
@@ -171,6 +165,7 @@ public class SlotFrame extends JFrame {
                     slotThread.start();
                 }
             } else {
+                spin_btn.setEnabled(!betINPUT.getText().trim().isEmpty() && !betINPUT.getText().trim().equals("0"));
                 btn_back.setEnabled(true);
                 for(SlotLabel s: slotty) {
                     s.setSpin(false);
@@ -219,18 +214,12 @@ public class SlotFrame extends JFrame {
             user.setCredits(credits + (bet * 100));
         } else {
             // Diagonal
-//            if (slotty.get(0).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(8).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(0).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(8).getID()) {
                 credits += bet * 3;
             } else if(slotty.get(0).getID() == slotty.get(8).getID()) {
                 credits += bet;
             }
 
-//            if (slotty.get(2).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(6).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(2).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(6).getID()) {
                 credits += bet * 3;
             } else if(slotty.get(2).getID() == slotty.get(6).getID()) {
@@ -238,27 +227,18 @@ public class SlotFrame extends JFrame {
             }
 
             // Horizontal
-//            if (slotty.get(0).getID() >= 10 && slotty.get(1).getID() >= 10 && slotty.get(2).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(0).getID() == slotty.get(1).getID() && slotty.get(1).getID() == slotty.get(2).getID()) {
                 credits += bet * 3;
             } else if(slotty.get(0).getID() == slotty.get(2).getID()) {
                 credits += bet;
             }
 
-//            if (slotty.get(3).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(5).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(3).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(5).getID()) {
                 credits += bet * 3;
             } else if(slotty.get(3).getID() == slotty.get(5).getID()) {
                 credits += bet;
             }
 
-//            if (slotty.get(6).getID() >= 10 && slotty.get(7).getID() >= 10 && slotty.get(8).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(6).getID() == slotty.get(7).getID() && slotty.get(7).getID() == slotty.get(8).getID()) {
                 credits += bet * 3;
             } else if(slotty.get(6).getID() == slotty.get(8).getID()) {
@@ -266,27 +246,18 @@ public class SlotFrame extends JFrame {
             }
 
             // Vertical
-//            if (slotty.get(0).getID() >= 10 && slotty.get(3).getID() >= 10 && slotty.get(6).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(0).getID() == slotty.get(3).getID() && slotty.get(3).getID() == slotty.get(6).getID()) {
                 credits += bet * 3;
             } else if (slotty.get(0).getID() == slotty.get(6).getID()) {
                 credits += bet;
             }
 
-//            if (slotty.get(1).getID() >= 10 && slotty.get(4).getID() >= 10 && slotty.get(7).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(1).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(7).getID()) {
                 credits += bet * 3;
             } else if(slotty.get(1).getID() == slotty.get(7).getID()) {
                 credits += bet;
             }
 
-//            if (slotty.get(2).getID() >= 10 && slotty.get(5).getID() >= 10 && slotty.get(8).getID() >= 10) {
-//                credits += bet * 2;
-//            }
             if (slotty.get(2).getID() == slotty.get(5).getID() && slotty.get(5).getID() == slotty.get(8).getID()) {
                 credits += bet * 3;
             } else if(slotty.get(2).getID() == slotty.get(8).getID()) {
