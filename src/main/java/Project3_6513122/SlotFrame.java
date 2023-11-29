@@ -145,6 +145,9 @@ public class SlotFrame extends JFrame {
                     }
                 } catch (NumberFormatException err) {
                     e.consume();
+                    betINPUT.setText("");
+                    user.setBet(0);
+                    spin_btn.setEnabled(false);
                 }
             }
         });
