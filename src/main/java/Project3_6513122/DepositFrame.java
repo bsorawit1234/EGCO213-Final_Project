@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DepositFrame extends DepositWithdrawFrame {
 
-    public DepositFrame(JFrame pf, int id, ArrayList<User> ul, String which) {
+    public DepositFrame(MainApplication pf, int id, ArrayList<User> ul, String which) {
         super(pf, id, ul, which);
     }
 

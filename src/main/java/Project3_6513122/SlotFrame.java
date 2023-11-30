@@ -1,5 +1,7 @@
 package Project3_6513122;
 
+import com.sun.tools.javac.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +15,9 @@ import java.awt.Image;
 
 public class SlotFrame extends JFrame {
     private JTextArea betINPUT;
-    private JFrame mainFrame, ParentFrame;
+    private JDialog   modalDialog;
+    private MainApplication mainFrame;
+    private UserFrame       ParentFrame;
     private JPanel contentpane;
     private JPanel drawpane;
     private JTextField balanceDISPLAY;
@@ -25,10 +29,11 @@ public class SlotFrame extends JFrame {
     private ArrayList<User> UserList;
     private User user;
     private int index;
+    private boolean smallWin, justWin;
     private static final CountDownLatch latch = new CountDownLatch(9);
     private boolean check_btn_back = true;
 
-    public SlotFrame(JFrame pf, int id, ArrayList<User> ul, JFrame mf) {
+    public SlotFrame(UserFrame pf, int id, ArrayList<User> ul, MainApplication mf) {
         ParentFrame = pf;
         index = id;
         UserList = ul;
@@ -107,6 +112,15 @@ public class SlotFrame extends JFrame {
 //        JLabel bet = new JLabel(betICON);
 //        bet.setBounds(1000, 250, 169, 74);
 //        layeredPane.add(bet, Integer.valueOf(2));
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    btn_back.doClick();
+                }
+            }
+        });
+        setFocusable(true);
 
         MyImageIcon slotMACHINE = new MyImageIcon(MyConstants.SLOTMACHINE).resize(906, 733);
         JLabel slot = new JLabel(slotMACHINE);
@@ -215,58 +229,82 @@ public class SlotFrame extends JFrame {
 
         if(bigWin) {
             user.setCredits(credits + (bet * 100));
+            JOptionPane.showMessageDialog(modalDialog, "Win " + bet*100 + " credits!!!!");
         } else {
             // Diagonal
             if (slotty.get(0).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(8).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(0).getID() == slotty.get(8).getID()) {
+                justWin = true;
                 credits += bet;
             }
 
             if (slotty.get(2).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(6).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(2).getID() == slotty.get(6).getID()) {
+                justWin = true;
                 credits += bet;
             }
 
             // Horizontal
             if (slotty.get(0).getID() == slotty.get(1).getID() && slotty.get(1).getID() == slotty.get(2).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(0).getID() == slotty.get(2).getID()) {
+                justWin = true;
                 credits += bet;
             }
 
             if (slotty.get(3).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(5).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(3).getID() == slotty.get(5).getID()) {
+                justWin = true;
                 credits += bet;
             }
 
             if (slotty.get(6).getID() == slotty.get(7).getID() && slotty.get(7).getID() == slotty.get(8).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(6).getID() == slotty.get(8).getID()) {
+                justWin = true;
                 credits += bet;
             }
 
             // Vertical
             if (slotty.get(0).getID() == slotty.get(3).getID() && slotty.get(3).getID() == slotty.get(6).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if (slotty.get(0).getID() == slotty.get(6).getID()) {
+                justWin = true;
                 credits += bet;
             }
 
             if (slotty.get(1).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(7).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(1).getID() == slotty.get(7).getID()) {
+                justWin = true;
                 credits += bet;
             }
 
             if (slotty.get(2).getID() == slotty.get(5).getID() && slotty.get(5).getID() == slotty.get(8).getID()) {
+                smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(2).getID() == slotty.get(8).getID()) {
+                justWin = true;
                 credits += bet;
             }
         }
+
+        if(smallWin) {
+            JOptionPane.showMessageDialog(modalDialog, "Win " + bet*3 + " credits!!!!");
+        } else if (justWin) {
+            JOptionPane.showMessageDialog(modalDialog, "Win " + bet + " credits!!!!");
+        }
+
         user.setCredits(credits);
         user.setBet(0);
 

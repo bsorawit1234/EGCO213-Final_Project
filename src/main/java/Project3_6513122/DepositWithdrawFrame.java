@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class DepositWithdrawFrame extends JFrame {
 
-    protected JFrame            mainFrame;
+    protected MainApplication   mainFrame;
     private JPanel              contentpane, amountContainer;
     private JLabel              drawpane;
     protected JDialog           modalDialog;
@@ -28,7 +28,7 @@ public class DepositWithdrawFrame extends JFrame {
     protected ArrayList<User>   UserList;
 //    private JLabel ;
 
-    public DepositWithdrawFrame(JFrame pf, int id, ArrayList<User> ul, String which) {
+    public DepositWithdrawFrame(MainApplication pf, int id, ArrayList<User> ul, String which) {
         mainFrame = pf;
         index = id;
         UserList = ul;

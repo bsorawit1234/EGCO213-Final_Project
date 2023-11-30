@@ -11,15 +11,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class UserFrame extends JFrame {
-    private JFrame mainFrame;
+    private MainApplication mainFrame;
     private JPanel contentpane;
     private JLabel drawpane;
     private int framewidth = MyConstants.FRAMEWIDTH;
     private int frameheight = MyConstants.FRAMEHEIGHT;
-    private JButton         btn_play, btn_deposit, btn_withdraw, btn_logout, btn_back;
+    private JButton         btn_play, btn_deposit, btn_withdraw, btn_logout, btn_setting;
     private ArrayList<User> UserList;
     private int index;
-    public UserFrame(JFrame pf, int id, ArrayList<User> ul) {
+    public UserFrame(MainApplication pf, int id, ArrayList<User> ul) {
         mainFrame = pf;
         index = id;
         UserList = ul;
@@ -32,7 +32,7 @@ public class UserFrame extends JFrame {
         Addinput(this);
     }
 
-    public void Addinput(JFrame userFrame) {
+    public void Addinput(UserFrame userFrame) {
         contentpane = (JPanel)getContentPane();
         contentpane.setLayout(null);
 
@@ -161,6 +161,25 @@ public class UserFrame extends JFrame {
                 dispose();
             }
         });
+
+        MyImageIcon settingBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
+        btn_setting = new JButton(settingBUTTON);
+        btn_setting.setBounds(30, 630,169 , 74);
+        btn_setting.setBorderPainted(false);
+        btn_setting.setContentAreaFilled(false);
+        btn_setting.setFocusPainted(false);
+        btn_setting.setOpaque(false);
+        btn_setting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SettingFrame settingFrame = new SettingFrame(mainFrame, userFrame, UserList);
+                settingFrame.setVisible(true);
+                settingFrame.setIsUserFrame(true);
+                settingFrame.setIsMainFrame(false);
+                userFrame.setVisible(false);
+            }
+        });
+        drawpane.add(btn_setting);
 
         drawpane.add(btn_logout);
         drawpane.add(label1);
