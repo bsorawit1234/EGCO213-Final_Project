@@ -9,8 +9,8 @@ import javax.swing.ImageIcon;
 
 interface MyConstants {
     //----- Resource files
-    static final String PATH        = "src/main/java/Project3_6513122/resources/source_slot/";
-    static final String SHEET       = PATH + "sheet.txt";
+    static final String PATH        = "src/main/java/Project3_6513122/resources/";
+    static final String SHEET       = "src/main/java/Project3_6513122/sheet.txt";
     static final String BG_HOME     = PATH + "bg-play.png";
     static final String PLAY_ICON   = PATH + "play-button.png";
     static final String HOWTOPLAY_ICON   = PATH + "howtoplay.png";
@@ -19,7 +19,6 @@ interface MyConstants {
     static final String HEAD_ICON     = PATH + "slotty69logo.png";
     static final String SLOT_CARD = PATH + "/slot_cha_white/";
     static final String SLOT_MAINBG = PATH + "bg-slotmaingame.jpg";
-    static final String BET_ICON = PATH + "bet-.png";
     static final String USERNAME = PATH + "username.png";
     static final String PASSWORD = PATH + "password.png";
     static final String SUBMIT = PATH + "summit.png";
@@ -38,7 +37,6 @@ interface MyConstants {
     static final String DEPOSITAMOUNTICON = PATH + "depositamount-text.png";
     static final String REPASSWORD = PATH + "re-password.png";
     static final String REGISTER = PATH + "register-button.png";
-    static final String BALANCE = PATH + "balance-nobg.png";
     static final String SLOTMACHINE = PATH + "slot-machine.png";
     static final String ROLL = PATH + "roll-button.png";
     static final String STOP = PATH + "stop-button.png";
@@ -51,7 +49,6 @@ interface MyConstants {
     static final String SETTINGPAGE = PATH + "setting-page.png";
     static final String SETTINGBUTTON = PATH + "setting-button.png";
     static final String WINPRIZE = PATH + "win-prize.png";
-
 
     //----- Sizes and locations
     static final int FRAMEWIDTH  = 1366;
