@@ -96,6 +96,7 @@ public class MainApplication extends JFrame implements ActionListener {
         btn_play.setContentAreaFilled(false);
         btn_play.setFocusPainted(false);
         btn_play.setOpaque(false);
+        btn_play.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_play.addActionListener(this);
 
         MyImageIcon htpBUTTON = new MyImageIcon(MyConstants.HOWTOPLAY_ICON).resize(htpwidth, htpheight);
@@ -105,15 +106,17 @@ public class MainApplication extends JFrame implements ActionListener {
         btn_htp.setContentAreaFilled(false);
         btn_htp.setFocusPainted(false);
         btn_htp.setOpaque(false);
+        btn_htp.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_htp.addActionListener(this);
 
-        MyImageIcon settingBUTTON = new MyImageIcon(MyConstants.HOWTOPLAY_ICON).resize(htpwidth, htpheight);
-        btn_setting = new JButton(htpBUTTON);
-        btn_setting.setBounds(750, 20, htpwidth, htpheight);
+        MyImageIcon settingBUTTON = new MyImageIcon(MyConstants.SETTINGBUTTON).resize(150, 150);
+        btn_setting = new JButton(settingBUTTON);
+        btn_setting.setBounds(1170, 20, 150, 150);
         btn_setting.setBorderPainted(false);
         btn_setting.setContentAreaFilled(false);
         btn_setting.setFocusPainted(false);
         btn_setting.setOpaque(false);
+        btn_setting.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_setting.addActionListener(this);
 
         addWindowListener(new WindowAdapter() {

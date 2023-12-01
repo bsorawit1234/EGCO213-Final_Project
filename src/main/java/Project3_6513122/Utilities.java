@@ -48,6 +48,9 @@ interface MyConstants {
     static final String SONG3 = PATH + "song/song3-funk-it.wav";
     static final String SONG4 = PATH + "song/song4-the-best-jazz-club.wav"; //default
     static final String SONG5 = PATH + "song/song5-upbeat-funky-pop.wav";
+    static final String SETTINGPAGE = PATH + "setting-page.png";
+    static final String SETTINGBUTTON = PATH + "setting-button.png";
+    static final String WINPRIZE = PATH + "win-prize.png";
 
 
     //----- Sizes and locations

@@ -59,7 +59,7 @@ public class SettingFrame extends JFrame {
         contentpane.setLayout(null);
 
         drawpane = new JLabel();
-        MyImageIcon background = new MyImageIcon(MyConstants.BG_LOGIN).resize(framewidth, frameheight);
+        MyImageIcon background = new MyImageIcon(MyConstants.SETTINGPAGE).resize(framewidth, frameheight);
         drawpane.setIcon(background);
         drawpane.setBounds(0, 0, framewidth, frameheight);
         drawpane.setLayout(null);
@@ -70,7 +70,7 @@ public class SettingFrame extends JFrame {
 //        mainFrame.setIsSongPlaying(true);
 
         playlist_box = new JComboBox(playlist);
-        playlist_box.setBounds(200, 200, 383, 40);
+        playlist_box.setBounds(200, 300, 383, 40);
         playlist_box.setSelectedItem(playlist[3]);
         playlist_box.setEditable(false);
         playlist_box.addActionListener(new ActionListener() {
@@ -109,7 +109,7 @@ public class SettingFrame extends JFrame {
 
 
         on_off = new JCheckBox();
-        on_off.setBounds(1200, 208, 30, 30);
+        on_off.setBounds(1200, 308, 30, 30);
         on_off.setPreferredSize(new Dimension(on_off.getPreferredSize().width, on_off.getPreferredSize().height));
         on_off.setOpaque(false);
         on_off.setBackground(new Color(0, 0, 0, 0));
@@ -133,7 +133,7 @@ public class SettingFrame extends JFrame {
         });
 
         JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        slider.setBounds(900, 200, 300, 50);
+        slider.setBounds(900, 300, 300, 50);
         slider.setMajorTickSpacing(20);
         slider.setMinorTickSpacing(5);
         slider.setPaintTicks(false);
@@ -177,6 +177,7 @@ public class SettingFrame extends JFrame {
         btn_back.setContentAreaFilled(false);
         btn_back.setFocusPainted(false);
         btn_back.setOpaque(false);
+        btn_back.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

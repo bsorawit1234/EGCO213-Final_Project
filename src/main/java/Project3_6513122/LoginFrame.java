@@ -104,6 +104,7 @@ public class LoginFrame extends JFrame {
         btn_submit.setContentAreaFilled(false);
         btn_submit.setFocusPainted(false);
         btn_submit.setOpaque(false);
+        btn_submit.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,6 +131,7 @@ public class LoginFrame extends JFrame {
         btn_register.setContentAreaFilled(false);
         btn_register.setFocusPainted(false);
         btn_register.setOpaque(false);
+        btn_register.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -147,6 +149,7 @@ public class LoginFrame extends JFrame {
         btn_back.setContentAreaFilled(false);
         btn_back.setFocusPainted(false);
         btn_back.setOpaque(false);
+        btn_back.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

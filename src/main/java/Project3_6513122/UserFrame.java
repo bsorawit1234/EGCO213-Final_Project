@@ -89,6 +89,7 @@ public class UserFrame extends JFrame {
         btn_play.setContentAreaFilled(false);
         btn_play.setFocusPainted(false);
         btn_play.setOpaque(false);
+        btn_play.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,6 +109,7 @@ public class UserFrame extends JFrame {
         btn_deposit.setContentAreaFilled(false);
         btn_deposit.setFocusPainted(false);
         btn_deposit.setOpaque(false);
+        btn_deposit.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_deposit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,6 +127,7 @@ public class UserFrame extends JFrame {
         btn_withdraw.setContentAreaFilled(false);
         btn_withdraw.setFocusPainted(false);
         btn_withdraw.setOpaque(false);
+        btn_withdraw.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_withdraw.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,6 +145,7 @@ public class UserFrame extends JFrame {
         btn_logout.setContentAreaFilled(false);
         btn_logout.setFocusPainted(false);
         btn_logout.setOpaque(false);
+        btn_logout.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,13 +166,14 @@ public class UserFrame extends JFrame {
             }
         });
 
-        MyImageIcon settingBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
+        MyImageIcon settingBUTTON = new MyImageIcon(MyConstants.SETTINGBUTTON).resize(150, 150);
         btn_setting = new JButton(settingBUTTON);
-        btn_setting.setBounds(30, 630,169 , 74);
+        btn_setting.setBounds(30, 570,150, 150);
         btn_setting.setBorderPainted(false);
         btn_setting.setContentAreaFilled(false);
         btn_setting.setFocusPainted(false);
         btn_setting.setOpaque(false);
+        btn_setting.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_setting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
