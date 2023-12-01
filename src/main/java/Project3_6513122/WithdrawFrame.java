@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class WithdrawFrame extends DepositFrame {
-    public WithdrawFrame(JFrame pf, int id, ArrayList<User> ul, String which) {
+    public WithdrawFrame(MainApplication pf, int id, ArrayList<User> ul, String which) {
         super(pf, id, ul, which);
     }
     public void actionPerformed(ActionEvent e) {

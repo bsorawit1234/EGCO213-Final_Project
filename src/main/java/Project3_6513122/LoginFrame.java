@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class LoginFrame extends JFrame {
-    private JFrame mainFrame;
+    private MainApplication mainFrame;
     private JPanel contentpane, containerPassword;
     private JLabel drawpane;
     private int framewidth = MyConstants.FRAMEWIDTH;
@@ -20,7 +20,7 @@ public class LoginFrame extends JFrame {
     private JRadioButton    showPw;
     private ArrayList<User> UserList;
     private User user;
-    public LoginFrame(JFrame pf, ArrayList<User> ul) {
+    public LoginFrame(MainApplication pf, ArrayList<User> ul) {
         mainFrame = pf;
         UserList = ul;
         this.setSize(framewidth, frameheight);

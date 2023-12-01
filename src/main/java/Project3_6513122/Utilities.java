@@ -1,6 +1,10 @@
 package Project3_6513122;
 
 import java.awt.Image;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.ImageIcon;
 
 interface MyConstants {
@@ -39,6 +43,12 @@ interface MyConstants {
     static final String ROLL = PATH + "roll-button.png";
     static final String STOP = PATH + "stop-button.png";
     static final String HOWTOPLAYPAGE = PATH + "howtoplay-page.png";
+    static final String SONG1 = PATH + "song/song1-former.wav";
+    static final String SONG2 = PATH + "song/song2-funk-casino.wav";
+    static final String SONG3 = PATH + "song/song3-funk-it.wav";
+    static final String SONG4 = PATH + "song/song4-the-best-jazz-club.wav"; //default
+    static final String SONG5 = PATH + "song/song5-upbeat-funky-pop.wav";
+
 
     //----- Sizes and locations
     static final int FRAMEWIDTH  = 1366;
@@ -56,5 +66,41 @@ class MyImageIcon extends ImageIcon {
         Image oldimg = this.getImage();
         Image newimg = oldimg.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new MyImageIcon(newimg);
+    }
+}
+class MySoundEffect {
+    private Clip clip;
+    private FloatControl gainControl;
+
+    public MySoundEffect(String filename) {
+        try {
+            java.io.File file = new java.io.File(filename);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void playOnce() {
+        clip.setMicrosecondPosition(0);
+        clip.start();
+    }
+
+    public void playLoop() {
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+
+    public void stop() {
+        clip.stop();
+    }
+
+    public void setVolume(float gain) {
+        if (gain < 0.0f) gain = 0.0f;
+        if (gain > 1.0f) gain = 1.0f;
+        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+        gainControl.setValue(dB);
     }
 }

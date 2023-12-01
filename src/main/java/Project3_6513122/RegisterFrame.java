@@ -2,16 +2,13 @@ package Project3_6513122;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
 
 class RegisterFrame extends JFrame {
-    private JFrame ParentFrame;
+    private MainApplication ParentFrame;
     private JPanel contentpane, containerRePassword, containerPassword;
     private JLabel drawpane;
     private int framewidth = MyConstants.FRAMEWIDTH;
@@ -24,7 +21,7 @@ class RegisterFrame extends JFrame {
     private JRadioButton    showPw1, showPw2;
     private ArrayList<User> UserList;
 
-    public RegisterFrame(JFrame pf, ArrayList<User> ul) {
+    public RegisterFrame(MainApplication pf, ArrayList<User> ul) {
         ParentFrame = pf;
         UserList = ul;
         this.setSize(framewidth, frameheight);
@@ -33,10 +30,10 @@ class RegisterFrame extends JFrame {
         this.setResizable(false);
         this.setTitle("Register");
 
-        Addinput();
+        Addinput(this);
     }
 
-    public void Addinput() {
+    public void Addinput(RegisterFrame frame) {
         contentpane = (JPanel)getContentPane();
 
         drawpane = new JLabel();
@@ -204,6 +201,7 @@ class RegisterFrame extends JFrame {
             }
         });
         drawpane.add(btn_back);
+
 
         drawpane.add(label);
         contentpane.add(drawpane);

@@ -5,3 +5,6 @@ boom2 12345 0 100
 admin admin 0 0
 teeee teeee 200 920
 11111 11111 1 100
+eetee eetee 0 0
+eeteee eeteee 10 70
+pairnuan pairnuan 10 30
