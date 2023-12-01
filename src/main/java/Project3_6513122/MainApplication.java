@@ -20,6 +20,7 @@ public class MainApplication extends JFrame implements ActionListener {
     private MySoundEffect theme_song;
     private String theme_path;
     private boolean isSongPlaying;
+    private int sliderValue;
     private float soundVoulume;
     private ArrayList<User> UserList = new ArrayList<User>();
 
@@ -77,6 +78,8 @@ public class MainApplication extends JFrame implements ActionListener {
         theme_song = new MySoundEffect(theme_path);
         theme_song.playLoop();
         theme_song.setVolume(soundVoulume); //min 0.00 + F - max 0.05 + F
+        sliderValue = 50;
+
         isSongPlaying = true;
 
         MyImageIcon headICON = new MyImageIcon(MyConstants.HEAD_ICON).resize(423, 201);
@@ -149,7 +152,7 @@ public class MainApplication extends JFrame implements ActionListener {
             howToPlayFrame.setVisible(true);
             this.setVisible(false);
         } else if (e.getSource() == btn_setting) {
-            SettingFrame settingFrame = new SettingFrame(this, UserList);
+            SettingFrame settingFrame = new SettingFrame(this);
             settingFrame.setVisible(true);
             settingFrame.setIsMainFrame(true);
             settingFrame.setIsUserFrame(false);
@@ -183,6 +186,14 @@ public class MainApplication extends JFrame implements ActionListener {
 
     public void setSoundVoulume(float soundVoulume) {
         this.soundVoulume = soundVoulume;
+    }
+
+    public void setSliderValue(int sliderValue) {
+        this.sliderValue = sliderValue;
+    }
+
+    public int getSliderValue() {
+        return sliderValue;
     }
 }
 
