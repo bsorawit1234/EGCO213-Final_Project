@@ -177,7 +177,7 @@ public class UserFrame extends JFrame {
         btn_setting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SettingFrame settingFrame = new SettingFrame(mainFrame, userFrame, UserList);
+                SettingFrame settingFrame = new SettingFrame(mainFrame, userFrame);
                 settingFrame.setVisible(true);
                 settingFrame.setIsUserFrame(true);
                 settingFrame.setIsMainFrame(false);

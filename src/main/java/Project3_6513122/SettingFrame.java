@@ -11,25 +11,21 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class SettingFrame extends JFrame {
+    private final String[]  playlist = {"former", "funk-casino", "funk-it", "jazz-club", "upbeat-funky-pop"};
     private MainApplication mainFrame;
     private UserFrame       userFrame;
-    private JPanel contentpane;
-    private JLabel drawpane;
-    private int framewidth = MyConstants.FRAMEWIDTH;
-    private int frameheight = MyConstants.FRAMEHEIGHT;
-    private JButton btn_back;
-    private JComboBox playlist_box;
-    private ArrayList<User> UserList;
-    private User user;
-    private MySoundEffect themeSong;
-    private JCheckBox on_off;
-    private float volume;
-    private boolean isUserFrame, isMainFrame;
-    private final String[] playlist = {"former", "funk-casino", "funk-it", "jazz-club", "upbeat-funky-pop"};
+    private JPanel          contentpane;
+    private JLabel          drawpane;
+    private JButton         btn_back;
+    private JComboBox       playlist_box;
+    private JCheckBox       on_off;
+    private int             framewidth = MyConstants.FRAMEWIDTH;
+    private int             frameheight = MyConstants.FRAMEHEIGHT;
+    private float           volume;
+    private boolean         isUserFrame, isMainFrame;
 
-    public SettingFrame(MainApplication pf, ArrayList<User> ul) {
+    public SettingFrame(MainApplication pf) {
         mainFrame = pf;
-        UserList = ul;
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,9 +36,8 @@ public class SettingFrame extends JFrame {
         Addinput(this);
     }
 
-    public SettingFrame(MainApplication pf, UserFrame uf, ArrayList<User> ul) {
+    public SettingFrame(MainApplication pf, UserFrame uf) {
         mainFrame = pf;
-        UserList = ul;
         userFrame = uf;
         this.setSize(framewidth, frameheight);
         this.setLocationRelativeTo(null);
@@ -102,6 +97,26 @@ public class SettingFrame extends JFrame {
         });
         drawpane.add(playlist_box);
 
+        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        slider.setBounds(900, 300, 300, 50);
+        slider.setMajorTickSpacing(20);
+        slider.setMinorTickSpacing(5);
+        slider.setPaintTicks(false);
+        slider.setPaintLabels(false);
+        slider.setBackground(new Color(0, 0, 0, 0));
+        slider.setOpaque(false);
+        drawpane.add(slider);
+        slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                mainFrame.setSliderValue(slider.getValue());
+                volume = (float) (slider.getValue() * 0.00025);
+                mainFrame.setVolumeTheme_song(volume);
+            }
+        });
+        slider.setValue(mainFrame.getSliderValue());
+
+
         on_off = new JCheckBox();
         on_off.setBounds(1200, 308, 30, 30);
         on_off.setPreferredSize(new Dimension(on_off.getPreferredSize().width, on_off.getPreferredSize().height));
@@ -118,30 +133,16 @@ public class SettingFrame extends JFrame {
                     mainFrame.getTheme_song().stop();
                     mainFrame.setIsSongPlaying(false);
                     playlist_box.setEnabled(false);
+                    slider.setEnabled(false);
                 } else {
                     mainFrame.getTheme_song().playLoop();
                     mainFrame.setIsSongPlaying(true);
                     playlist_box.setEnabled(true);
+                    slider.setEnabled(true);
                 }
             }
         });
 
-        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-        slider.setBounds(900, 300, 300, 50);
-        slider.setMajorTickSpacing(20);
-        slider.setMinorTickSpacing(5);
-        slider.setPaintTicks(false);
-        slider.setPaintLabels(false);
-        slider.setBackground(new Color(0, 0, 0, 0));
-        slider.setOpaque(false);
-        drawpane.add(slider);
-        slider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                volume = (float) (slider.getValue() * 0.0005);
-                mainFrame.setVolumeTheme_song(volume);
-            }
-        });
 
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
         btn_back = new JButton(backBUTTON);
