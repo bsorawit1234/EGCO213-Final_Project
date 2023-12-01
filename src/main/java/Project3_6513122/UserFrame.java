@@ -94,7 +94,7 @@ public class UserFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /* SLOT_FRAME */
-                SlotFrame slotFrame = new SlotFrame(userFrame, index, UserList, mainFrame);
+                SlotFrame slotFrame = new SlotFrame(index, UserList, mainFrame);
                 slotFrame.setVisible(true);
 
                 dispose();

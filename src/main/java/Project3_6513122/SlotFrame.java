@@ -1,23 +1,22 @@
 package Project3_6513122;
 
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
-import java.awt.Image;
 
 public class SlotFrame extends JFrame {
     private JTextArea betINPUT;
     private JDialog   modalDialog;
     private MainApplication mainFrame;
-    private UserFrame       ParentFrame;
     private JPanel contentpane;
     private JPanel drawpane;
     private JTextField balanceDISPLAY;
@@ -33,8 +32,7 @@ public class SlotFrame extends JFrame {
     private static final CountDownLatch latch = new CountDownLatch(9);
     private boolean check_btn_back = true;
 
-    public SlotFrame(UserFrame pf, int id, ArrayList<User> ul, MainApplication mf) {
-        ParentFrame = pf;
+    public SlotFrame(int id, ArrayList<User> ul, MainApplication mf) {
         index = id;
         UserList = ul;
         mainFrame = mf;
@@ -44,7 +42,6 @@ public class SlotFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
         this.setTitle("SLOT FRAME");
-        //this.setLayout(null);
 
         contentpane = (JPanel) getContentPane();
         contentpane.setLayout(new BorderLayout());
@@ -76,7 +73,6 @@ public class SlotFrame extends JFrame {
         MyImageIcon spinBUTTON = new MyImageIcon(MyConstants.ROLL).resize(173, 168);
         MyImageIcon stopBUTTON = new MyImageIcon(MyConstants.STOP).resize(173, 168);
         ImageIcon[] buttonIcons = {spinBUTTON, stopBUTTON};
-        //String[] spin_text = {spinBUTTON, stopBUTTON}; // Wating for img button spin, stop
         JButton spin_btn = new JButton(buttonIcons[0]);
         spin_btn.setBounds(1000, 500, 173, 168);
         spin_btn.setBorderPainted(false);

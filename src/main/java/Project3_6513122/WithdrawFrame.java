@@ -44,12 +44,6 @@ public class WithdrawFrame extends DepositFrame {
         } else if(e.getSource() == btn_proceed) {
             try {
                 if(amountField.getText().isBlank()) throw new MyException("Please enter something.");
-//                if(Integer.parseInt(amountField.getText()) > UserList.get(index).getCredits() || Integer.parseInt(amountField.getText()) < 0) {
-//                    throw new MyException("You cannot withdraw with the value that you have provided");
-//                }
-//                if(Integer.parseInt(amountField.getText()) > 1000000000) {
-//                    throw new MyException("You cannot withdraw more than 999999999 credits");
-//                }
                 showTableModalDialog(this, Integer.parseInt(amountField.getText()));
             } catch (NumberFormatException err) {
                 JOptionPane.showMessageDialog(this, "Please enter number only");
