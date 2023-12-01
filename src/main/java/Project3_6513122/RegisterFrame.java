@@ -151,6 +151,7 @@ class RegisterFrame extends JFrame {
         certify.setBackground(new Color(0, 0, 0, 0));
         certify.setFocusPainted(false);
         certify.setForeground(Color.white);
+        certify.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         drawpane.add(certify);
 
         MyImageIcon registerBUTTON = new MyImageIcon(MyConstants.REGISTER).resize(277, 74);
@@ -161,7 +162,7 @@ class RegisterFrame extends JFrame {
         btn_submit.setBorderPainted(false);
         btn_submit.setContentAreaFilled(false);
         btn_submit.setFocusPainted(false);
-        btn_submit.setOpaque(false);
+        btn_submit.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,6 +193,7 @@ class RegisterFrame extends JFrame {
         btn_back.setContentAreaFilled(false);
         btn_back.setFocusPainted(false);
         btn_back.setOpaque(false);
+        btn_back.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

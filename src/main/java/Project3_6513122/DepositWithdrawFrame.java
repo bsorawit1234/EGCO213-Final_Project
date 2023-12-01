@@ -169,6 +169,7 @@ public class DepositWithdrawFrame extends JFrame {
         btn_proceed.setFocusPainted(false);
         btn_proceed.setOpaque(false);
         btn_proceed.addActionListener(this::actionPerformed);
+        btn_proceed.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         drawpane.add(btn_proceed);
 
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
@@ -178,6 +179,7 @@ public class DepositWithdrawFrame extends JFrame {
         btn_back.setContentAreaFilled(false);
         btn_back.setFocusPainted(false);
         btn_back.setOpaque(false);
+        btn_back.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -8,3 +8,4 @@ teeee teeee 200 920
 eetee eetee 0 0
 eeteee eeteee 10 70
 pairnuan pairnuan 10 30
+aaaaa aaaaa 0 0

@@ -83,6 +83,7 @@ public class SlotFrame extends JFrame {
         spin_btn.setContentAreaFilled(false);
         spin_btn.setFocusPainted(false);
         spin_btn.setOpaque(false);
+        spin_btn.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
         layeredPane.add(spin_btn, Integer.valueOf(2));
 
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
@@ -92,6 +93,7 @@ public class SlotFrame extends JFrame {
         btn_back.setContentAreaFilled(false);
         btn_back.setFocusPainted(false);
         btn_back.setOpaque(false);
+        btn_back.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
 
         btn_back.addActionListener(new ActionListener() {
             @Override
@@ -103,15 +105,12 @@ public class SlotFrame extends JFrame {
             }
         });
         layeredPane.add(btn_back, Integer.valueOf(2));
-//        MyImageIcon balanceICON = new MyImageIcon(MyConstants.BALANCE).resize(315, 70);
-//        JLabel balance = new JLabel(balanceICON);
-//        balance.setBounds(1000, 80, 315, 70);
-//        layeredPane.add(balance, Integer.valueOf(2));
-//
-//        MyImageIcon betICON = new MyImageIcon(MyConstants.BET_ICON).resize(169, 74);
-//        JLabel bet = new JLabel(betICON);
-//        bet.setBounds(1000, 250, 169, 74);
-//        layeredPane.add(bet, Integer.valueOf(2));
+
+        MyImageIcon winprizeICON = new MyImageIcon(MyConstants.WINPRIZE).resize(414, 300);
+        JLabel winprize = new JLabel(winprizeICON);
+        winprize.setBounds(900, 80, 414, 300);
+        layeredPane.add(winprize, Integer.valueOf(2));
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
