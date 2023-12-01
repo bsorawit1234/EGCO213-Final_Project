@@ -64,11 +64,6 @@ public class SettingFrame extends JFrame {
         drawpane.setBounds(0, 0, framewidth, frameheight);
         drawpane.setLayout(null);
 
-//        mainFrame.setTheme_song(themeSong); // default setting.
-//        mainFrame.getTheme_song().playLoop();
-//        mainFrame.setVolumeTheme_song(0.01F); //min 0.00 + F - max 0.05 + F
-//        mainFrame.setIsSongPlaying(true);
-
         playlist_box = new JComboBox(playlist);
         playlist_box.setBounds(200, 300, 383, 40);
         playlist_box.setSelectedItem(playlist[3]);
@@ -106,7 +101,6 @@ public class SettingFrame extends JFrame {
             }
         });
         drawpane.add(playlist_box);
-
 
         on_off = new JCheckBox();
         on_off.setBounds(1200, 308, 30, 30);
@@ -149,27 +143,6 @@ public class SettingFrame extends JFrame {
             }
         });
 
-//        MyImageIcon red = new MyImageIcon(MyConstants.RED).resize(383, 324);
-//        JLabel label = new JLabel(red);
-//        MyImageIcon username = new MyImageIcon(MyConstants.USERNAME).resize(248, 42);
-//        JLabel label1 = new JLabel(username);
-//        MyImageIcon password = new MyImageIcon(MyConstants.PASSWORD).resize(248, 42);
-//        JLabel label2 = new JLabel(password);
-//        label.setBounds(450, 200,383 , 324);
-//        label.setIcon(red);
-//        label.setVisible(true);
-//
-//        label1.setBounds(20, 20, 248, 42);
-//        label1.setIcon(username);
-//        label1.setVisible(true);
-//
-//        label2.setBounds(20, 145, 248, 42);
-//        label2.setIcon(password);
-//        label2.setVisible(true);
-//
-//        label.add(label1);
-//        label.add(label2);
-
         MyImageIcon backBUTTON = new MyImageIcon(MyConstants.BACK).resize(169, 74);
         btn_back = new JButton(backBUTTON);
         btn_back.setBounds(30, 630, 169, 74);
@@ -181,8 +154,6 @@ public class SettingFrame extends JFrame {
         btn_back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                MainApplication mainApplication = new MainApplication();
-//                mainApplication.setVisible(true);
                 if(isMainFrame) mainFrame.setVisible(true);
                 else if(isUserFrame) userFrame.setVisible(true);
                 dispose();
@@ -198,8 +169,6 @@ public class SettingFrame extends JFrame {
             }
         });
         frame.setFocusable(true);
-
-//        drawpane.add(label);
         contentpane.add(drawpane);
         repaint();
         validate();
