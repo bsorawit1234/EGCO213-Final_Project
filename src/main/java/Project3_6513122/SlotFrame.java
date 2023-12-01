@@ -28,7 +28,7 @@ public class SlotFrame extends JFrame {
     private ArrayList<User> UserList;
     private User user;
     private int index;
-    private boolean smallWin, justWin;
+    private boolean smallWin;
     private static final CountDownLatch latch = new CountDownLatch(9);
     private boolean check_btn_back = true;
 
@@ -166,6 +166,7 @@ public class SlotFrame extends JFrame {
         spin_btn.addActionListener(e -> {
             if(spinCountBtn % 2 == 0) {
                 btn_back.setEnabled(false);
+                smallWin = false;
                 for(SlotLabel s: slotty) {
                     Thread slotThread = new Thread() {
                         public void run() {
@@ -212,6 +213,7 @@ public class SlotFrame extends JFrame {
 
     public void check_slot() {
         int credits = user.getCredits();
+        int old_credits = user.getCredits();
         int bet = user.getBet();
 
         boolean bigWin = true;
@@ -224,14 +226,14 @@ public class SlotFrame extends JFrame {
 
         if(bigWin) {
             user.setCredits(credits + (bet * 100));
-            JOptionPane.showMessageDialog(modalDialog, "Win " + bet*100 + " credits!!!!");
+            JOptionPane.showMessageDialog(modalDialog, "Win " + (credits - old_credits) + " credits!!!!");
         } else {
             // Diagonal
             if (slotty.get(0).getID() == slotty.get(4).getID() && slotty.get(4).getID() == slotty.get(8).getID()) {
                 smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(0).getID() == slotty.get(8).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
 
@@ -239,7 +241,7 @@ public class SlotFrame extends JFrame {
                 smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(2).getID() == slotty.get(6).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
 
@@ -248,7 +250,7 @@ public class SlotFrame extends JFrame {
                 smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(0).getID() == slotty.get(2).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
 
@@ -256,7 +258,7 @@ public class SlotFrame extends JFrame {
                 smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(3).getID() == slotty.get(5).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
 
@@ -264,7 +266,7 @@ public class SlotFrame extends JFrame {
                 smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(6).getID() == slotty.get(8).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
 
@@ -273,7 +275,7 @@ public class SlotFrame extends JFrame {
                 smallWin = true;
                 credits += bet * 3;
             } else if (slotty.get(0).getID() == slotty.get(6).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
 
@@ -281,7 +283,7 @@ public class SlotFrame extends JFrame {
                 smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(1).getID() == slotty.get(7).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
 
@@ -289,15 +291,13 @@ public class SlotFrame extends JFrame {
                 smallWin = true;
                 credits += bet * 3;
             } else if(slotty.get(2).getID() == slotty.get(8).getID()) {
-                justWin = true;
+                smallWin = true;
                 credits += bet;
             }
         }
 
         if(smallWin) {
-            JOptionPane.showMessageDialog(modalDialog, "Win " + bet*3 + " credits!!!!");
-        } else if (justWin) {
-            JOptionPane.showMessageDialog(modalDialog, "Win " + bet + " credits!!!!");
+            JOptionPane.showMessageDialog(modalDialog, "Win " + (credits - old_credits) + " credits!!!!");
         }
 
         user.setCredits(credits);
