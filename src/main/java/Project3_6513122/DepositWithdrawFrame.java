@@ -37,7 +37,7 @@ public class DepositWithdrawFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
-        this.setTitle("Deposit & Withdraw Page");
+        this.setTitle(which);
 
         Addinput(this);
     }

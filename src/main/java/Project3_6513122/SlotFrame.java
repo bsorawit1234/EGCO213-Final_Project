@@ -41,7 +41,7 @@ public class SlotFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
-        this.setTitle("SLOT FRAME");
+        this.setTitle("SLOTTY69 GAME");
 
         contentpane = (JPanel) getContentPane();
         contentpane.setLayout(new BorderLayout());
@@ -298,6 +298,10 @@ public class SlotFrame extends JFrame {
 
         if(smallWin) {
             JOptionPane.showMessageDialog(modalDialog, "Win " + (credits - old_credits) + " credits!!!!");
+        }
+
+        if(!bigWin && !smallWin) {
+            JOptionPane.showMessageDialog(modalDialog, "Lost " + bet + " credits");
         }
 
         user.setCredits(credits);

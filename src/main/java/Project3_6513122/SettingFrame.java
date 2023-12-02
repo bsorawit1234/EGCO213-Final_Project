@@ -30,7 +30,7 @@ public class SettingFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
-        this.setTitle("Login");
+        this.setTitle("Setting");
 
 
         Addinput(this);
